@@ -149,6 +149,12 @@ public class ConfigManager {
         return getConfig().getInt("home.warmup-seconds", 3);
     }
 
+    // ── TPA ──────────────────────────────────────────────────────
+
+    public int getTpaWarmupSeconds() {
+        return getConfig().getInt("tpa.warmup-seconds", 3);
+    }
+
     public int getHomeCooldownSeconds() {
         return getConfig().getInt("home.cooldown-seconds", 0);
     }

@@ -420,6 +420,14 @@ public class LangManager {
         return get("tpa.unknown-player");
     }
 
+    public String getTpaStandStill() {
+        return get("tpa.stand-still");
+    }
+
+    public String getTpaWarmupCancelled() {
+        return get("tpa.warmup-cancelled");
+    }
+
     // ── TP Admin ──────────────────────────────────────────────────
 
     public String getTpAdminUsage() {
