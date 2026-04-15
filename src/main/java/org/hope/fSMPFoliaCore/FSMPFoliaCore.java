@@ -98,7 +98,8 @@ public final class FSMPFoliaCore extends JavaPlugin {
         TpaCommand tpaCommand = new TpaCommand(langManager, tpaManager, vanishManager);
         getCommand("tpa").setExecutor(tpaCommand);
         getCommand("tpa").setTabCompleter(tpaCommand);
-        getCommand("tpaccept").setExecutor(new TpAcceptCommand(langManager, tpaManager, soundManager));
+        TpAcceptCommand tpAcceptCommand = new TpAcceptCommand(this, configManager, langManager, tpaManager, soundManager);
+        getCommand("tpaccept").setExecutor(tpAcceptCommand);
         getCommand("tpadeny").setExecutor(new TpDenyCommand(langManager, tpaManager, soundManager));
 
         TpAdminCommand tpAdminCommand = new TpAdminCommand(langManager);
@@ -201,6 +202,7 @@ public final class FSMPFoliaCore extends JavaPlugin {
                 delHomeCommand.clearPending(uuid);
                 tpaManager.cancelOutgoing(uuid);
                 tpaManager.cancelIncoming(uuid);
+                tpAcceptCommand.cancelWarmup(uuid);
             }
 
             @EventHandler
@@ -208,6 +210,7 @@ public final class FSMPFoliaCore extends JavaPlugin {
                 UUID uuid = event.getPlayer().getUniqueId();
                 spawnCommand.cancelWarmup(uuid);
                 homeCommand.cancelWarmup(uuid);
+                tpAcceptCommand.cancelWarmup(uuid);
             }
         }, this);
 

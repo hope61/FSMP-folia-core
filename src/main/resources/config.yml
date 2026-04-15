@@ -46,7 +46,7 @@ spawn:
 
 # ── Home ─────────────────────────────────────────────────────────
 home:
-  warmup-seconds: 3
+  warmup-seconds: 5
   cooldown-seconds: 0
 
 # ── Private Messages ─────────────────────────────────────────────
@@ -59,7 +59,7 @@ msg:
 # ── TPA ──────────────────────────────────────────────────────────
 tpa:
   # Warmup seconds before teleport after acceptance (0 = instant)
-  warmup-seconds: 3
+  warmup-seconds: 5
 
 # ── AFK ──────────────────────────────────────────────────────────
 afk:
