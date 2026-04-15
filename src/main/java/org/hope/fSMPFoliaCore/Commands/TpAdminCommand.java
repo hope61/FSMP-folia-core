@@ -25,25 +25,25 @@ public class TpAdminCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (!player.hasPermission("fsmp.tp.admin")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args.length == 0) {
-            player.sendMessage(Component.text(lang.getTpAdminUsage(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getTpAdminUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null) {
-            player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_PURPLE));
             return true;
         }
         player.teleportAsync(target.getLocation()).thenAccept(success -> {
             if (success) {
-                player.sendMessage(Component.text(lang.getTpAdminTeleported(target.getName()), NamedTextColor.DARK_AQUA));
+                player.sendMessage(Component.text(lang.getTpAdminTeleported(target.getName()), NamedTextColor.DARK_PURPLE));
             }
         });
         return true;

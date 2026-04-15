@@ -51,7 +51,7 @@ public class PortalLockListener implements Listener {
         String msg = portal.equals("nether")
                 ? lang.getPortalNetherLocked(PortalLockManager.formatRemaining(remaining))
                 : lang.getPortalEndLocked(PortalLockManager.formatRemaining(remaining));
-        Bukkit.broadcast(Component.text(msg, NamedTextColor.DARK_AQUA));
+        Bukkit.broadcast(Component.text(msg, NamedTextColor.DARK_PURPLE));
     }
 
     @EventHandler
@@ -75,7 +75,7 @@ public class PortalLockListener implements Listener {
             String msg = portal.equals("nether")
                     ? lang.getPortalNetherDenied(PortalLockManager.formatRemaining(remaining))
                     : lang.getPortalEndDenied(PortalLockManager.formatRemaining(remaining));
-            player.sendMessage(Component.text(msg, NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(msg, NamedTextColor.DARK_PURPLE));
         }
     }
 }

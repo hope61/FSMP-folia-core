@@ -29,36 +29,36 @@ public class CratesCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.crates.admin")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args.length == 0) {
-            sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         String sub = args[0].toLowerCase();
         switch (sub) {
             case "give" -> {
-                if (args.length < 2) { sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_AQUA)); return true; }
+                if (args.length < 2) { sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_PURPLE)); return true; }
                 Player target = Bukkit.getPlayerExact(args[1]);
-                if (target == null) { sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[1]), NamedTextColor.DARK_AQUA)); return true; }
+                if (target == null) { sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[1]), NamedTextColor.DARK_PURPLE)); return true; }
                 int amount = parseAmount(sender, args.length >= 3 ? args[2] : "1");
                 if (amount < 0) return true;
                 crateManager.addCrates(target, amount);
-                sender.sendMessage(Component.text(lang.getCratesGiven(target.getName(), amount), NamedTextColor.DARK_AQUA));
-                target.sendMessage(Component.text(lang.getCratesReceived(amount), NamedTextColor.AQUA));
+                sender.sendMessage(Component.text(lang.getCratesGiven(target.getName(), amount), NamedTextColor.DARK_PURPLE));
+                target.sendMessage(Component.text(lang.getCratesReceived(amount), NamedTextColor.LIGHT_PURPLE));
             }
             case "giveall" -> {
                 int amount = parseAmount(sender, args.length >= 2 ? args[1] : "1");
                 if (amount < 0) return true;
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     crateManager.addCrates(p, amount);
-                    p.sendMessage(Component.text(lang.getCratesReceived(amount), NamedTextColor.AQUA));
+                    p.sendMessage(Component.text(lang.getCratesReceived(amount), NamedTextColor.LIGHT_PURPLE));
                 }
-                sender.sendMessage(Component.text(lang.getCratesGivenAll(amount), NamedTextColor.DARK_AQUA));
+                sender.sendMessage(Component.text(lang.getCratesGivenAll(amount), NamedTextColor.DARK_PURPLE));
             }
-            default -> sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_AQUA));
+            default -> sender.sendMessage(Component.text(lang.getCratesUsage(), NamedTextColor.DARK_PURPLE));
         }
         return true;
     }
@@ -69,7 +69,7 @@ public class CratesCommand implements CommandExecutor, TabCompleter {
             if (v < 1 || v > 64) throw new NumberFormatException();
             return v;
         } catch (NumberFormatException e) {
-            sender.sendMessage(Component.text(lang.getCratesInvalidAmount(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getCratesInvalidAmount(), NamedTextColor.DARK_PURPLE));
             return -1;
         }
     }

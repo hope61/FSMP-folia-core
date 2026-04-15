@@ -28,12 +28,12 @@ public class FsmpCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.reload")) {
-            sender.sendMessage(Component.text(lang.getFsmpNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getFsmpNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-            sender.sendMessage(Component.text(lang.getFsmpUsage(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getFsmpUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -41,7 +41,7 @@ public class FsmpCommand implements CommandExecutor, TabCompleter {
         lang.reload();
         announcementManager.stop();
         announcementManager.start();
-        sender.sendMessage(Component.text(lang.getFsmpReloadSuccess(), NamedTextColor.AQUA));
+        sender.sendMessage(Component.text(lang.getFsmpReloadSuccess(), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 

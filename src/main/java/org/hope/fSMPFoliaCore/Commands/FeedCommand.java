@@ -19,18 +19,18 @@ public class FeedCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getFeedPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getFeedPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.feed")) {
-            player.sendMessage(Component.text(lang.getFeedNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getFeedNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         player.setFoodLevel(20);
         player.setSaturation(20f);
-        player.sendMessage(Component.text(lang.getFeedSuccess(), NamedTextColor.AQUA));
+        player.sendMessage(Component.text(lang.getFeedSuccess(), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 }

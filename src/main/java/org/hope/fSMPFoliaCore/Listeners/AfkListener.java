@@ -58,7 +58,7 @@ public class AfkListener implements Listener {
             // Auto-AFK detection
             if (!afkManager.isAfk(player.getUniqueId()) && timeoutMs > 0 && idle >= timeoutMs) {
                 afkManager.setAfk(player.getUniqueId(), true);
-                Bukkit.broadcast(Component.text(lang.getAfkEnter(player.getName()), NamedTextColor.DARK_AQUA));
+                Bukkit.broadcast(Component.text(lang.getAfkEnter(player.getName()), NamedTextColor.DARK_PURPLE));
             }
 
             // Crate reward for AFK time — inventory ops must run on player's region thread
@@ -67,7 +67,7 @@ public class AfkListener implements Listener {
                     crateManager.recordHourlyClaim(player.getUniqueId());
                     player.getScheduler().run(plugin, t -> {
                         crateManager.addCrates(player, 1);
-                        player.sendMessage(Component.text(lang.getCratesReceivedAfk(), NamedTextColor.AQUA));
+                        player.sendMessage(Component.text(lang.getCratesReceivedAfk(), NamedTextColor.LIGHT_PURPLE));
                     }, null);
                 }
             }
@@ -75,7 +75,7 @@ public class AfkListener implements Listener {
             // Auto-kick
             if (kickAfterMs > 0 && idle >= kickAfterMs) {
                 player.getScheduler().run(plugin, task ->
-                        player.kick(Component.text(lang.getAfkKicked(), NamedTextColor.DARK_AQUA)), null);
+                        player.kick(Component.text(lang.getAfkKicked(), NamedTextColor.DARK_PURPLE)), null);
             }
         }
     }
@@ -93,7 +93,7 @@ public class AfkListener implements Listener {
 
         if (wasAfk) {
             afkManager.setAfk(player.getUniqueId(), false);
-            Bukkit.broadcast(Component.text(lang.getAfkLeave(player.getName()), NamedTextColor.DARK_AQUA));
+            Bukkit.broadcast(Component.text(lang.getAfkLeave(player.getName()), NamedTextColor.DARK_PURPLE));
         }
     }
 

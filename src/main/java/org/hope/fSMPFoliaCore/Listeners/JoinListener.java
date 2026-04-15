@@ -59,10 +59,10 @@ public class JoinListener implements Listener {
             event.getPlayer().getScheduler().runDelayed(plugin, task -> {
                 event.getPlayer().showTitle(Title.title(
                         Component.text(lang.getJoinTitleMain())
-                                .color(NamedTextColor.AQUA)
+                                .color(NamedTextColor.LIGHT_PURPLE)
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getJoinTitleSub())
-                                .color(NamedTextColor.DARK_AQUA),
+                                .color(NamedTextColor.DARK_PURPLE),
                         Title.Times.times(
                                 Duration.ofMillis(500),
                                 Duration.ofMillis(3000),
@@ -97,7 +97,7 @@ public class JoinListener implements Listener {
                 event.getPlayer().getScheduler().runDelayed(plugin, task -> {
                     crateManager.addCrates(event.getPlayer(), finalPending);
                     event.getPlayer().sendMessage(
-                            Component.text(lang.getVotePending(finalPending), NamedTextColor.AQUA));
+                            Component.text(lang.getVotePending(finalPending), NamedTextColor.LIGHT_PURPLE));
                 }, null, 20L); // slight delay so player is fully loaded
             }
         });
@@ -105,13 +105,13 @@ public class JoinListener implements Listener {
 
     private void sendWelcomeGuide(org.bukkit.entity.Player player) {
         // ── border ──
-        Component border = Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━", NamedTextColor.DARK_AQUA);
+        Component border = Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━", NamedTextColor.DARK_PURPLE);
 
         // ── header ──
         Component header = Component.text()
-                .append(Component.text("   ✦ ", NamedTextColor.DARK_AQUA))
-                .append(Component.text("FriendlySMP Revive", NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
-                .append(Component.text(" ✦", NamedTextColor.DARK_AQUA))
+                .append(Component.text("   ✦ ", NamedTextColor.DARK_PURPLE))
+                .append(Component.text("FriendlySMP Revive", NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ✦", NamedTextColor.DARK_PURPLE))
                 .build();
 
         // ── rows ──
@@ -137,19 +137,19 @@ public class JoinListener implements Listener {
         player.sendMessage(border);
         for (Component line : lines) player.sendMessage(line);
         player.sendMessage(border);
-        player.sendMessage(Component.text("  /discord за въпроси и помощ", NamedTextColor.DARK_AQUA));
+        player.sendMessage(Component.text("  /discord за въпроси и помощ", NamedTextColor.DARK_PURPLE));
         player.sendMessage(border);
     }
 
     private static Component row(String icon, String label, String value) {
         String prefix = icon.isEmpty() ? "    " : " " + icon + " ";
         if (!label.isEmpty()) {
-            return Component.text(prefix, NamedTextColor.DARK_AQUA)
-                    .append(Component.text(label + ": ", NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
-                    .append(Component.text(value, NamedTextColor.AQUA));
+            return Component.text(prefix, NamedTextColor.DARK_PURPLE)
+                    .append(Component.text(label + ": ", NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
+                    .append(Component.text(value, NamedTextColor.LIGHT_PURPLE));
         } else {
-            return Component.text(prefix, NamedTextColor.DARK_AQUA)
-                    .append(Component.text(value, NamedTextColor.AQUA));
+            return Component.text(prefix, NamedTextColor.DARK_PURPLE)
+                    .append(Component.text(value, NamedTextColor.LIGHT_PURPLE));
         }
     }
 }

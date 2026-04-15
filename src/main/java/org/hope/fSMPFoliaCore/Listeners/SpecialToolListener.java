@@ -38,7 +38,7 @@ public class SpecialToolListener implements Listener {
         if (!toolManager.isSpecialTool(item)) return;
         if (toolManager.isExpired(item)) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_AQUA));
+            event.getPlayer().sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_PURPLE));
             // Remove only the held item slot, not all matching items in inventory
             event.getPlayer().getInventory().setItemInMainHand(null);
         }
@@ -52,7 +52,7 @@ public class SpecialToolListener implements Listener {
 
         if (toolManager.isExpired(item)) {
             event.setCancelled(true);
-            player.sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_PURPLE));
             player.getInventory().setItemInMainHand(null);
             return;
         }

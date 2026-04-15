@@ -40,19 +40,19 @@ public class ConfigManager {
     }
 
     public TextColor getBarColor() {
-        return parseColor(getConfig().getString("discord.colors.bar"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("discord.colors.bar"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getMessageColor() {
-        return parseColor(getConfig().getString("discord.colors.message"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("discord.colors.message"), NamedTextColor.LIGHT_PURPLE);
     }
 
     public TextColor getButtonColor() {
-        return parseColor(getConfig().getString("discord.colors.button"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("discord.colors.button"), NamedTextColor.LIGHT_PURPLE);
     }
 
     public TextColor getButtonHoverColor() {
-        return parseColor(getConfig().getString("discord.colors.button-hover"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("discord.colors.button-hover"), NamedTextColor.DARK_PURPLE);
     }
 
     // ── Join ─────────────────────────────────────────────────────
@@ -62,15 +62,15 @@ public class ConfigManager {
     }
 
     public TextColor getJoinArrowColor() {
-        return parseColor(getConfig().getString("join.colors.arrow"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("join.colors.arrow"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getJoinNameColor() {
-        return parseColor(getConfig().getString("join.colors.name"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("join.colors.name"), NamedTextColor.LIGHT_PURPLE);
     }
 
     public TextColor getJoinTextColor() {
-        return parseColor(getConfig().getString("join.colors.text"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("join.colors.text"), NamedTextColor.LIGHT_PURPLE);
     }
 
     // ── Leave ────────────────────────────────────────────────────
@@ -80,11 +80,11 @@ public class ConfigManager {
     }
 
     public TextColor getLeaveArrowColor() {
-        return parseColor(getConfig().getString("leave.colors.arrow"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("leave.colors.arrow"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getLeaveNameColor() {
-        return parseColor(getConfig().getString("leave.colors.name"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("leave.colors.name"), NamedTextColor.LIGHT_PURPLE);
     }
 
     public TextColor getLeaveTextColor() {
@@ -94,11 +94,11 @@ public class ConfigManager {
     // ── Chat ─────────────────────────────────────────────────────
 
     public TextColor getChatNameColor() {
-        return parseColor(getConfig().getString("chat.colors.name"), NamedTextColor.AQUA);
+        return parseColor(getConfig().getString("chat.colors.name"), NamedTextColor.LIGHT_PURPLE);
     }
 
     public TextColor getChatSeparatorColor() {
-        return parseColor(getConfig().getString("chat.colors.separator"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("chat.colors.separator"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getChatMessageColor() {
@@ -108,11 +108,11 @@ public class ConfigManager {
     // ── Msg ──────────────────────────────────────────────────────
 
     public TextColor getMsgArrowColor() {
-        return parseColor(getConfig().getString("msg.colors.arrow"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("msg.colors.arrow"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getMsgSeparatorColor() {
-        return parseColor(getConfig().getString("msg.colors.separator"), NamedTextColor.DARK_AQUA);
+        return parseColor(getConfig().getString("msg.colors.separator"), NamedTextColor.DARK_PURPLE);
     }
 
     public TextColor getMsgMessageColor() {

@@ -62,7 +62,7 @@ public class CrateListener implements Listener {
     private void giveReward(Player player) {
         List<Map<?, ?>> rewards = config.getConfig().getMapList("crates.rewards");
         if (rewards.isEmpty()) {
-            player.sendMessage(Component.text(lang.getCratesNoRewards(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getCratesNoRewards(), NamedTextColor.DARK_PURPLE));
             return;
         }
 
@@ -80,36 +80,36 @@ public class CrateListener implements Listener {
             case "xp" -> {
                 int amount = getInt(chosen, "amount", 25);
                 player.giveExp(amount);
-                player.sendMessage(Component.text(lang.getCratesRewardXp(amount), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardXp(amount), NamedTextColor.LIGHT_PURPLE));
             }
             case "totem" -> {
                 ItemStack totem = new ItemStack(Material.TOTEM_OF_UNDYING);
                 var leftover = player.getInventory().addItem(totem);
                 if (!leftover.isEmpty()) player.getWorld().dropItemNaturally(player.getLocation(), leftover.values().iterator().next());
-                player.sendMessage(Component.text(lang.getCratesRewardTotem(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardTotem(), NamedTextColor.LIGHT_PURPLE));
             }
             case "special_pickaxe" -> {
                 toolManager.giveTool(player, SpecialToolManager.ToolType.PICKAXE, config.getSpecialToolLifetimeHours());
-                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.LIGHT_PURPLE));
             }
             case "special_axe" -> {
                 toolManager.giveTool(player, SpecialToolManager.ToolType.AXE, config.getSpecialToolLifetimeHours());
-                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.LIGHT_PURPLE));
             }
             case "special_shovel" -> {
                 toolManager.giveTool(player, SpecialToolManager.ToolType.SHOVEL, config.getSpecialToolLifetimeHours());
-                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardTool(), NamedTextColor.LIGHT_PURPLE));
             }
             case "gold" -> {
                 int amount = getInt(chosen, "amount", 8);
                 ItemStack gold = new ItemStack(Material.GOLD_INGOT, amount);
                 var leftover = player.getInventory().addItem(gold);
                 if (!leftover.isEmpty()) player.getWorld().dropItemNaturally(player.getLocation(), leftover.values().iterator().next());
-                player.sendMessage(Component.text(lang.getCratesRewardGold(amount), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardGold(amount), NamedTextColor.LIGHT_PURPLE));
             }
             default -> {
                 player.giveExp(25);
-                player.sendMessage(Component.text(lang.getCratesRewardXp(25), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesRewardXp(25), NamedTextColor.LIGHT_PURPLE));
             }
         }
     }

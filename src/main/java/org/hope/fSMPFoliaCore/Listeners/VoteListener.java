@@ -36,14 +36,14 @@ public class VoteListener implements Listener {
         int crates = config.getVoteCratesPerVote();
 
         plugin.getServer().getGlobalRegionScheduler().run(plugin, task -> {
-            Bukkit.broadcast(Component.text(lang.getVoteBroadcast(username, crates), NamedTextColor.AQUA));
+            Bukkit.broadcast(Component.text(lang.getVoteBroadcast(username, crates), NamedTextColor.LIGHT_PURPLE));
 
             Player player = Bukkit.getPlayerExact(username);
             if (player != null) {
                 // Online — give crates on player's region thread
                 player.getScheduler().run(plugin, t -> {
                     crateManager.addCrates(player, crates);
-                    player.sendMessage(Component.text(lang.getVoteReceived(crates), NamedTextColor.AQUA));
+                    player.sendMessage(Component.text(lang.getVoteReceived(crates), NamedTextColor.LIGHT_PURPLE));
                 }, null);
             } else {
                 // Offline — persist so they get crates on next login

@@ -29,17 +29,17 @@ public class FsmpcoreCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.admin")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args.length == 0) {
-            sender.sendMessage(Component.text(lang.getFsmpcoreUsage(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getFsmpcoreUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args[0].equalsIgnoreCase("giveitem")) {
             return giveItemCommand.onCommand(sender, command, label, args);
         }
-        sender.sendMessage(Component.text(lang.getFsmpcoreUsage(), NamedTextColor.DARK_AQUA));
+        sender.sendMessage(Component.text(lang.getFsmpcoreUsage(), NamedTextColor.DARK_PURPLE));
         return true;
     }
 

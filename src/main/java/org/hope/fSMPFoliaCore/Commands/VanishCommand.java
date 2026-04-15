@@ -23,20 +23,20 @@ public class VanishCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getVanishPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getVanishPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (!player.hasPermission("fsmp.vanish")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (vanishManager.isVanished(player)) {
             vanishManager.unvanish(player);
-            player.sendMessage(Component.text(lang.getVanishOff(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getVanishOff(), NamedTextColor.DARK_PURPLE));
         } else {
             vanishManager.vanish(player);
-            player.sendMessage(Component.text(lang.getVanishOn(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getVanishOn(), NamedTextColor.DARK_PURPLE));
         }
         return true;
     }
