@@ -1,0 +1,240 @@
+name: FSMP-folia-core
+version: '1.0'
+main: org.hope.fSMPFoliaCore.FSMPFoliaCore
+api-version: '1.21'
+folia-supported: true
+soft-depend: [Vault, LuckPerms, NuVotifier, Votifier]
+
+commands:
+  discord:
+    description: Displays the discord link
+    usage: /discord
+  gamemode:
+    description: Change your gamemode
+    usage: /gamemode <mode>
+    permission: fsmp.gamemode
+  gm:
+    description: Change your gamemode
+    usage: /gm <mode>
+    permission: fsmp.gamemode
+  gms:
+    description: Switch to survival mode
+    usage: /gms
+    permission: fsmp.gamemode
+  gmc:
+    description: Switch to creative mode
+    usage: /gmc
+    permission: fsmp.gamemode
+  gma:
+    description: Switch to adventure mode
+    usage: /gma
+    permission: fsmp.gamemode
+  gmsp:
+    description: Switch to spectator mode
+    usage: /gmsp
+    permission: fsmp.gamemode
+  msg:
+    description: Send a private message to a player
+    usage: /msg <player> <message>
+    aliases: [tell, whisper, w]
+  r:
+    description: Reply to the last private message
+    usage: /r <message>
+    aliases: [reply]
+  spawn:
+    description: Teleport to the server spawn
+    usage: /spawn
+    permission: fsmp.spawn
+    permission-message: "Нямаш право да използваш тази команда!"
+  setspawn:
+    description: Set the server spawn to your current location
+    usage: /setspawn
+    permission: fsmp.setspawn
+    permission-message: "Нямаш право да използваш тази команда!"
+  removespawn:
+    description: Remove the server spawn
+    usage: /removespawn
+    permission: fsmp.setspawn
+    permission-message: "Нямаш право да използваш тази команда!"
+  heal:
+    description: Fully restore your health
+    usage: /heal
+    permission: fsmp.heal
+    permission-message: "Нямаш право да използваш тази команда!"
+  feed:
+    description: Fully restore your hunger
+    usage: /feed
+    permission: fsmp.feed
+    permission-message: "Нямаш право да използваш тази команда!"
+  home:
+    description: Teleport to a home
+    usage: /home [name]
+  sethome:
+    description: Set a home at your current location
+    usage: /sethome [name]
+  delhome:
+    description: Delete a home
+    usage: /delhome <name|all>
+  edithome:
+    description: Rename or relocate a home
+    usage: /edithome <name> <rename <newname>|relocate>
+  homes:
+    description: Open a GUI listing all your homes
+    usage: /homes
+  day:
+    description: Set time to day
+    usage: /day
+    permission: fsmp.time
+    permission-message: "Нямаш право да използваш тази команда!"
+  night:
+    description: Set time to night
+    usage: /night
+    permission: fsmp.time
+    permission-message: "Нямаш право да използваш тази команда!"
+  sun:
+    description: Clear the weather
+    usage: /sun
+    permission: fsmp.time
+    permission-message: "Нямаш право да използваш тази команда!"
+  tpa:
+    description: Request to teleport to a player
+    usage: /tpa <player>
+  tpaccept:
+    description: Accept a teleport request
+    usage: /tpaccept
+  tpadeny:
+    description: Deny a teleport request
+    usage: /tpadeny
+  tp:
+    description: Teleport to a player (admin)
+    usage: /tp <player>
+    permission: fsmp.tp.admin
+    permission-message: "Нямаш право да използваш тази команда!"
+  vanish:
+    description: Toggle vanish
+    usage: /vanish
+    aliases: [v]
+    permission: fsmp.vanish
+    permission-message: "Нямаш право да използваш тази команда!"
+  bc:
+    description: Broadcast a message
+    usage: /bc <message>
+    permission: fsmp.broadcast
+    permission-message: "Нямаш право да използваш тази команда!"
+  afk:
+    description: Toggle AFK mode
+    usage: /afk
+  playtime:
+    description: Check playtime
+    usage: /playtime [player]
+  vote:
+    description: Show voting links
+    usage: /vote
+  crates:
+    description: Admin crate management
+    usage: /crates <give <player> [amount]|giveall [amount]>
+    permission: fsmp.crates.admin
+    permission-message: "Нямаш право да използваш тази команда!"
+  resettime:
+    description: Reset portal lock timer
+    usage: /resettime <nether|end>
+    permission: fsmp.resettime
+    permission-message: "Нямаш право да използваш тази команда!"
+  xp:
+    description: XP management
+    usage: /xp <reset|add|remove|info> <player> [amount]
+    permission: fsmp.xp
+    permission-message: "Нямаш право да използваш тази команда!"
+  fsmpcore:
+    description: FSMP admin tools
+    usage: /fsmpcore giveitem <axe|pickaxe|shovel> <player> [amount]
+    permission: fsmp.admin
+    permission-message: "Нямаш право да използваш тази команда!"
+  fsmp:
+    description: Main plugin command
+    usage: /fsmp reload
+    permission: fsmp.reload
+    permission-message: "Нямаш право да използваш тази команда!"
+
+permissions:
+  fsmp.spawn:
+    description: Allows using /spawn
+    default: true
+  fsmp.spawn.bypass-cooldown:
+    description: Bypass /spawn cooldown
+    default: op
+  fsmp.setspawn:
+    description: Allows using /setspawn and /removespawn
+    default: op
+  fsmp.gamemode:
+    description: Allows using /gm and gamemode aliases
+    default: op
+  fsmp.spawner.bypass:
+    description: Allows breaking spawners
+    default: op
+  fsmp.heal:
+    description: Allows using /heal
+    default: op
+  fsmp.feed:
+    description: Allows using /feed
+    default: op
+  fsmp.home:
+    description: Allows using /home, /sethome, /delhome, /homes
+    default: true
+  fsmp.home.limit.1:
+    description: Allows 1 home slot
+    default: true
+  fsmp.home.edit:
+    description: Allows using /edithome
+    default: true
+  fsmp.home.bypass-cooldown:
+    description: Bypass /home cooldown
+    default: op
+  fsmp.home.unlimited:
+    description: Unlimited home slots
+    default: op
+  fsmp.reload:
+    description: Allows using /fsmp reload
+    default: op
+  fsmp.time:
+    description: Allows using /day, /night, /sun
+    default: op
+  fsmp.tpa:
+    description: Allows using /tpa, /tpaccept, /tpadeny
+    default: true
+  fsmp.tp.admin:
+    description: Allows using /tp (instant, no warmup)
+    default: op
+  fsmp.vanish:
+    description: Allows using /vanish
+    default: op
+  fsmp.broadcast:
+    description: Allows using /bc
+    default: op
+  fsmp.afk:
+    description: Allows using /afk
+    default: true
+  fsmp.afk.bypass:
+    description: Bypass AFK auto-detection
+    default: op
+  fsmp.playtime:
+    description: Allows using /playtime
+    default: true
+  fsmp.vote:
+    description: Allows using /vote
+    default: true
+  fsmp.crates.admin:
+    description: Allows admin crate commands
+    default: op
+  fsmp.resettime:
+    description: Allows using /resettime
+    default: op
+  fsmp.xp:
+    description: Allows using /xp
+    default: op
+  fsmp.admin:
+    description: Allows using /fsmpcore admin commands
+    default: op
+  fsmp.portal.bypass:
+    description: Bypass portal lock
+    default: op

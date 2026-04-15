@@ -1,0 +1,192 @@
+# ================================================================
+#                    FSMP Folia Core - Config
+# ================================================================
+
+# ── Discord Announcement ─────────────────────────────────────────
+discord:
+  enabled: true
+  link: "https://discord.gg/link"
+  interval-seconds: 1800
+  colors:
+    bar: "dark_aqua"
+    message: "aqua"
+    button: "aqua"
+    button-hover: "dark_aqua"
+
+# ── Join Messages ────────────────────────────────────────────────
+join:
+  enabled: true
+  show-title: true
+  colors:
+    arrow: "dark_aqua"
+    name: "aqua"
+    text: "aqua"
+
+# ── Leave Messages ───────────────────────────────────────────────
+leave:
+  enabled: true
+  colors:
+    arrow: "dark_aqua"
+    name: "aqua"
+    text: "gray"
+
+# ── Chat Format ──────────────────────────────────────────────────
+chat:
+  colors:
+    name: "aqua"
+    separator: "dark_aqua"
+    message: "white"
+
+# ── Spawn ────────────────────────────────────────────────────────
+spawn:
+  teleport-on-first-join: true
+  teleport-on-respawn: true
+  warmup-seconds: 5
+  cooldown-seconds: 30
+
+# ── Home ─────────────────────────────────────────────────────────
+home:
+  warmup-seconds: 3
+  cooldown-seconds: 0
+
+# ── Private Messages ─────────────────────────────────────────────
+msg:
+  colors:
+    arrow: "dark_aqua"
+    separator: "dark_aqua"
+    message: "white"
+
+# ── TPA ──────────────────────────────────────────────────────────
+tpa:
+  # Warmup seconds before teleport after acceptance (0 = instant)
+  warmup-seconds: 3
+
+# ── AFK ──────────────────────────────────────────────────────────
+afk:
+  enabled: true
+  # Minutes of no movement before auto-AFK (0 = disabled)
+  timeout-minutes: 5
+  # Give 1 crate after this many minutes of AFK (0 = disabled)
+  crate-after-minutes: 30
+  # Auto-kick after this many minutes of AFK (0 = disabled)
+  kick-after-minutes: 0
+
+# ── Sleep Skip ───────────────────────────────────────────────────
+sleep:
+  enabled: true
+  # Fixed number of players required to skip night (0 = use percentage)
+  required-players: 0
+  # Percentage of players that must sleep (0 = use required-players)
+  percentage: 50
+  # Broadcast sleep progress to all players
+  broadcast-progress: true
+
+# ── Portal Lock ──────────────────────────────────────────────────
+portals:
+  nether:
+    enabled: true
+    unlock-days: 4
+    unlock-hours: 0
+    unlock-minutes: 0
+    broadcast-interval-minutes: 360
+  end:
+    enabled: true
+    unlock-days: 7
+    unlock-hours: 0
+    unlock-minutes: 0
+    broadcast-interval-minutes: 360
+
+# ── Diamond Crafting XP Cost ─────────────────────────────────────
+diamond-crafting:
+  enabled: true
+  xp-cost: 187
+  bypass-permission: "fsmp.diamond-craft.bypass"
+
+# ── Vote System ──────────────────────────────────────────────────
+vote:
+  crates-per-vote: 3
+  links:
+    - "https://minecraft-server-list.com/server/your-id/vote/"
+
+# ── Crates ───────────────────────────────────────────────────────
+crates:
+  # XP reward amounts and weights
+  rewards:
+    - type: "xp"
+      amount: 25
+      weight: 20
+    - type: "xp"
+      amount: 50
+      weight: 15
+    - type: "xp"
+      amount: 100
+      weight: 10
+    - type: "xp"
+      amount: 200
+      weight: 7
+    - type: "xp"
+      amount: 500
+      weight: 4
+    - type: "xp"
+      amount: 1000
+      weight: 1
+    - type: "gold"
+      amount: 8
+      weight: 15
+    - type: "gold"
+      amount: 16
+      weight: 10
+    - type: "gold"
+      amount: 32
+      weight: 5
+    - type: "totem"
+      weight: 8
+    - type: "special_pickaxe"
+      weight: 2
+    - type: "special_axe"
+      weight: 2
+    - type: "special_shovel"
+      weight: 2
+
+# ── Special Tools ────────────────────────────────────────────────
+special-tools:
+  # Lifetime of special tools in hours
+  lifetime-hours: 24
+
+# ── Sounds ───────────────────────────────────────────────────────
+sounds:
+  teleport:
+    enabled: true
+    sound: "ENTITY_ENDERMAN_TELEPORT"
+    volume: 1.0
+    pitch: 1.0
+  msg-receive:
+    enabled: true
+    sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    volume: 0.5
+    pitch: 1.2
+  tpa-receive:
+    enabled: true
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 1.0
+    pitch: 1.0
+  tpa-accepted:
+    enabled: true
+    sound: "ENTITY_PLAYER_LEVELUP"
+    volume: 0.5
+    pitch: 2.0
+  tpa-denied:
+    enabled: true
+    sound: "ENTITY_VILLAGER_NO"
+    volume: 1.0
+    pitch: 1.0
+  sleep-skip:
+    enabled: true
+    sound: "ENTITY_CHICKEN_EGG"
+    volume: 1.0
+    pitch: 1.0
+  crate-open:
+    enabled: true
+    sound: "ENTITY_PLAYER_LEVELUP"
+    volume: 1.0
+    pitch: 1.0
