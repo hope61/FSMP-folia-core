@@ -47,8 +47,8 @@ public class TimeCommand implements CommandExecutor {
                     player.sendMessage(Component.text(lang.getTimeNight(), NamedTextColor.DARK_PURPLE));
                 }
                 case SUN -> {
-                    player.getWorld().setWeatherDuration(0);
-                    player.getWorld().setThunderDuration(0);
+                    player.getWorld().setStorm(false);
+                    player.getWorld().setThundering(false);
                     player.sendMessage(Component.text(lang.getTimeSun(), NamedTextColor.LIGHT_PURPLE));
                 }
             }
