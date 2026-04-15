@@ -56,14 +56,14 @@ public class SleepSkipListener implements Listener {
 
         if (config.isSleepBroadcastProgress()) {
             Bukkit.broadcast(Component.text(
-                    lang.getSleepProgress(sleepingCount, totalCount), NamedTextColor.DARK_AQUA));
+                    lang.getSleepProgress(sleepingCount, totalCount), NamedTextColor.DARK_PURPLE));
         }
 
         if (enough) {
             world.setTime(1000L);
             world.setWeatherDuration(0);
             world.setThunderDuration(0);
-            Bukkit.broadcast(Component.text(lang.getSleepSkipped(), NamedTextColor.AQUA));
+            Bukkit.broadcast(Component.text(lang.getSleepSkipped(), NamedTextColor.LIGHT_PURPLE));
             for (Player p : Bukkit.getOnlinePlayers()) {
                 soundManager.play(p, "sleep-skip");
             }

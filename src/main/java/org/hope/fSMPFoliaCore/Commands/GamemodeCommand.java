@@ -24,24 +24,24 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getGamemodePlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getGamemodePlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.gamemode")) {
-            player.sendMessage(Component.text(lang.getGamemodeNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getGamemodeNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         GameMode mode = resolveGamemode(label, args);
 
         if (mode == null) {
-            player.sendMessage(Component.text(lang.getGamemodeUsage(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getGamemodeUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         player.setGameMode(mode);
-        player.sendMessage(Component.text(lang.getGamemodeChanged(lang.getGamemodeName(mode)), NamedTextColor.AQUA));
+        player.sendMessage(Component.text(lang.getGamemodeChanged(lang.getGamemodeName(mode)), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 

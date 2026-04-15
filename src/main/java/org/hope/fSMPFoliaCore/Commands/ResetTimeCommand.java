@@ -26,20 +26,20 @@ public class ResetTimeCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.resettime")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args.length == 0) {
-            sender.sendMessage(Component.text(lang.getResetTimeUsage(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getResetTimeUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         String portal = args[0].toLowerCase();
         if (!portal.equals("nether") && !portal.equals("end")) {
-            sender.sendMessage(Component.text(lang.getResetTimeUsage(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getResetTimeUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         portalLockManager.resetTimer(portal);
-        sender.sendMessage(Component.text(lang.getResetTimeSuccess(portal), NamedTextColor.DARK_AQUA));
+        sender.sendMessage(Component.text(lang.getResetTimeSuccess(portal), NamedTextColor.DARK_PURPLE));
         return true;
     }
 

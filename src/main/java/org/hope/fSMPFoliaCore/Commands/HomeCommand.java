@@ -44,25 +44,25 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         String name = args.length > 0 ? args[0] : "home";
 
         if (!homeManager.hasHome(player.getUniqueId(), name)) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         Location dest = homeManager.getHome(player.getUniqueId(), name);
         if (dest == null) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -98,7 +98,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
                 t.cancel();
                 warmups.remove(player.getUniqueId());
                 player.sendActionBar(Component.empty());
-                player.sendMessage(Component.text(lang.getHomeWarmupCancelled(), NamedTextColor.DARK_AQUA));
+                player.sendMessage(Component.text(lang.getHomeWarmupCancelled(), NamedTextColor.DARK_PURPLE));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.5f);
                 return;
             }
@@ -142,10 +142,10 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.2f);
                 player.showTitle(Title.title(
                         Component.text(lang.getHomeTitleMain(name))
-                                .color(NamedTextColor.AQUA)
+                                .color(NamedTextColor.LIGHT_PURPLE)
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getHomeTeleported(name))
-                                .color(NamedTextColor.DARK_AQUA),
+                                .color(NamedTextColor.DARK_PURPLE),
                         Title.Times.times(
                                 Duration.ofMillis(200),
                                 Duration.ofMillis(1800),
@@ -162,10 +162,10 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
         for (int i = 0; i < totalSeconds - secondsLeft; i++) empty.append('█');
 
         return Component.text()
-                .append(Component.text(filled.toString()).color(NamedTextColor.AQUA))
+                .append(Component.text(filled.toString()).color(NamedTextColor.LIGHT_PURPLE))
                 .append(Component.text(empty.toString()).color(NamedTextColor.DARK_GRAY))
                 .append(Component.text(" "))
-                .append(Component.text(secondsLeft + "с").color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
+                .append(Component.text(secondsLeft + "с").color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
                 .append(Component.text(" — " + standStillText).color(NamedTextColor.GRAY))
                 .build();
     }

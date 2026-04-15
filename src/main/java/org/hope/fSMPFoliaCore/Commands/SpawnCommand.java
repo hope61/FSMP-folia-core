@@ -41,18 +41,18 @@ public class SpawnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.spawn")) {
-            player.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         Location spawn = spawnManager.getSpawn();
         if (spawn == null) {
-            player.sendMessage(Component.text(lang.getSpawnNotSet(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getSpawnNotSet(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -95,7 +95,7 @@ public class SpawnCommand implements CommandExecutor {
                 t.cancel();
                 warmups.remove(player.getUniqueId());
                 player.sendActionBar(Component.empty());
-                player.sendMessage(Component.text(lang.getSpawnWarmupCancelled(), NamedTextColor.DARK_AQUA));
+                player.sendMessage(Component.text(lang.getSpawnWarmupCancelled(), NamedTextColor.DARK_PURPLE));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.5f);
                 return;
             }
@@ -133,10 +133,10 @@ public class SpawnCommand implements CommandExecutor {
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.2f);
                 player.showTitle(Title.title(
                         Component.text(lang.getSpawnTitle())
-                                .color(NamedTextColor.AQUA)
+                                .color(NamedTextColor.LIGHT_PURPLE)
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getSpawnTeleported())
-                                .color(NamedTextColor.DARK_AQUA),
+                                .color(NamedTextColor.DARK_PURPLE),
                         Title.Times.times(
                                 Duration.ofMillis(200),
                                 Duration.ofMillis(1800),
@@ -157,10 +157,10 @@ public class SpawnCommand implements CommandExecutor {
         for (int i = 0; i < barLength - filled; i++)   emptyStr.append('█');
 
         return Component.text()
-                .append(Component.text(filledStr.toString()).color(NamedTextColor.AQUA))
-                .append(Component.text(emptyStr.toString()).color(NamedTextColor.DARK_GRAY))
+                .append(Component.text(filledStr.toString()).color(NamedTextColor.LIGHT_PURPLE))
+                .append(Component.text(emptyStr.toString()).color(NamedTextColor.DARK_PURPLE))
                 .append(Component.text(" "))
-                .append(Component.text(secondsLeft + "с").color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
+                .append(Component.text(secondsLeft + "с").color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
                 .append(Component.text(" — " + standStillText).color(NamedTextColor.GRAY))
                 .build();
     }

@@ -8,33 +8,33 @@ discord:
   link: "https://discord.gg/link"
   interval-seconds: 1800
   colors:
-    bar: "dark_aqua"
-    message: "aqua"
-    button: "aqua"
-    button-hover: "dark_aqua"
+    bar: "dark_purple"
+    message: "light_purple"
+    button: "light_purple"
+    button-hover: "dark_purple"
 
 # ── Join Messages ────────────────────────────────────────────────
 join:
   enabled: true
   show-title: true
   colors:
-    arrow: "dark_aqua"
-    name: "aqua"
-    text: "aqua"
+    arrow: "dark_purple"
+    name: "light_purple"
+    text: "light_purple"
 
 # ── Leave Messages ───────────────────────────────────────────────
 leave:
   enabled: true
   colors:
-    arrow: "dark_aqua"
-    name: "aqua"
+    arrow: "dark_purple"
+    name: "light_purple"
     text: "gray"
 
 # ── Chat Format ──────────────────────────────────────────────────
 chat:
   colors:
-    name: "aqua"
-    separator: "dark_aqua"
+    name: "light_purple"
+    separator: "dark_purple"
     message: "white"
 
 # ── Spawn ────────────────────────────────────────────────────────
@@ -52,8 +52,8 @@ home:
 # ── Private Messages ─────────────────────────────────────────────
 msg:
   colors:
-    arrow: "dark_aqua"
-    separator: "dark_aqua"
+    arrow: "dark_purple"
+    separator: "dark_purple"
     message: "white"
 
 # ── TPA ──────────────────────────────────────────────────────────

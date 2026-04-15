@@ -22,11 +22,11 @@ public class RemoveSpawnCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.setspawn")) {
-            sender.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         spawnManager.removeSpawn();
-        sender.sendMessage(Component.text(lang.getSpawnRemoved(), NamedTextColor.DARK_AQUA));
+        sender.sendMessage(Component.text(lang.getSpawnRemoved(), NamedTextColor.DARK_PURPLE));
         return true;
     }
 }

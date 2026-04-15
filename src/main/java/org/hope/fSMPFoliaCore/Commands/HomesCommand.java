@@ -34,19 +34,19 @@ public class HomesCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         List<String> homes = homeManager.getHomeNames(player.getUniqueId());
 
         if (homes.isEmpty()) {
-            player.sendMessage(Component.text(lang.getHomeListEmpty(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeListEmpty(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -59,7 +59,7 @@ public class HomesCommand implements CommandExecutor {
         int rows = Math.max(1, (int) Math.ceil(homes.size() / 9.0));
         rows = Math.min(rows, 3); // max 3 rows = 27 slots
         Inventory inv = Bukkit.createInventory(null, rows * 9,
-                Component.text(lang.getHomesGuiTitle()).color(NamedTextColor.DARK_AQUA).decorate(TextDecoration.BOLD));
+                Component.text(lang.getHomesGuiTitle()).color(NamedTextColor.DARK_PURPLE).decorate(TextDecoration.BOLD));
 
         for (int i = 0; i < Math.min(homes.size(), rows * 9); i++) {
             String name = homes.get(i);
@@ -68,7 +68,7 @@ public class HomesCommand implements CommandExecutor {
             Material icon = Material.COMPASS;
             ItemStack item = new ItemStack(icon);
             ItemMeta meta = item.getItemMeta();
-            meta.displayName(Component.text(name).color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false));
+            meta.displayName(Component.text(name).color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false));
 
             if (loc != null) {
                 meta.lore(List.of(
@@ -76,7 +76,7 @@ public class HomesCommand implements CommandExecutor {
                         //Component.text(String.format("X: %.1f  Y: %.1f  Z: %.1f", loc.getX(), loc.getY(), loc.getZ()))
                         //        .color(NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
-                        Component.text(lang.getHomesGuiClickToTeleport()).color(NamedTextColor.DARK_AQUA).decoration(TextDecoration.ITALIC, false)
+                        Component.text(lang.getHomesGuiClickToTeleport()).color(NamedTextColor.DARK_PURPLE).decoration(TextDecoration.ITALIC, false)
                 ));
             }
 

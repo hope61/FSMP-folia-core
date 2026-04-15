@@ -22,19 +22,19 @@ public class SetHomeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         String name = args.length > 0 ? args[0] : "home";
 
         if (!homeManager.isValidName(name)) {
-            player.sendMessage(Component.text(lang.getHomeInvalidName(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeInvalidName(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -45,7 +45,7 @@ public class SetHomeCommand implements CommandExecutor {
                 // Confirmed — overwrite
                 homeManager.clearPendingOverwrite(player.getUniqueId());
                 homeManager.setHome(player.getUniqueId(), name, player.getLocation());
-                player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.LIGHT_PURPLE));
             } else {
                 // Ask for confirmation
                 homeManager.setPendingOverwrite(player.getUniqueId(), name);
@@ -58,13 +58,13 @@ public class SetHomeCommand implements CommandExecutor {
         int limit = homeManager.getHomeLimit(player);
         int current = homeManager.getHomeNames(player.getUniqueId()).size();
         if (current >= limit) {
-            player.sendMessage(Component.text(lang.getHomeLimitReached(limit), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeLimitReached(limit), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         homeManager.clearPendingOverwrite(player.getUniqueId());
         homeManager.setHome(player.getUniqueId(), name, player.getLocation());
-        player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.AQUA));
+        player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 }

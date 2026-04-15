@@ -24,11 +24,11 @@ public class AfkCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getAfkPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getAfkPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (!player.hasPermission("fsmp.afk")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -37,11 +37,11 @@ public class AfkCommand implements CommandExecutor {
 
         if (nowAfk) {
             Bukkit.broadcast(Component.text(
-                    lang.getAfkEnter(player.getName()), NamedTextColor.DARK_AQUA));
+                    lang.getAfkEnter(player.getName()), NamedTextColor.DARK_PURPLE));
         } else {
             afkManager.updateActivity(player);
             Bukkit.broadcast(Component.text(
-                    lang.getAfkLeave(player.getName()), NamedTextColor.DARK_AQUA));
+                    lang.getAfkLeave(player.getName()), NamedTextColor.DARK_PURPLE));
         }
         return true;
     }

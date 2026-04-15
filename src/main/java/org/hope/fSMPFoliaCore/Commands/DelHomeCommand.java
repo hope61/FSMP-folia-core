@@ -37,17 +37,17 @@ public class DelHomeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (args.length == 0) {
-            player.sendMessage(Component.text(lang.getDelhomeUsage(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getDelhomeUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -59,7 +59,7 @@ public class DelHomeCommand implements CommandExecutor, TabCompleter {
             if (pending != null && System.currentTimeMillis() - pending < CONFIRM_EXPIRY_MS) {
                 deleteAllPending.remove(player.getUniqueId());
                 homeManager.deleteAllHomes(player.getUniqueId());
-                player.sendMessage(Component.text(lang.getHomeAllDeleted(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getHomeAllDeleted(), NamedTextColor.LIGHT_PURPLE));
             } else {
                 deleteAllPending.put(player.getUniqueId(), System.currentTimeMillis());
                 player.sendMessage(Component.text(lang.getDelhomeAllConfirm(), NamedTextColor.GOLD));
@@ -68,12 +68,12 @@ public class DelHomeCommand implements CommandExecutor, TabCompleter {
         }
 
         if (!homeManager.hasHome(player.getUniqueId(), name)) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         homeManager.deleteHome(player.getUniqueId(), name);
-        player.sendMessage(Component.text(lang.getHomeDeleted(name), NamedTextColor.AQUA));
+        player.sendMessage(Component.text(lang.getHomeDeleted(name), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 

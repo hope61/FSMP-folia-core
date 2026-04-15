@@ -79,13 +79,13 @@ public class CrateManager {
         ItemStack item = new ItemStack(Material.CHEST, amount);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("✦ FSMP Кутия ✦")
-                .color(NamedTextColor.AQUA)
+                .color(NamedTextColor.LIGHT_PURPLE)
                 .decorate(TextDecoration.BOLD)
                 .decoration(TextDecoration.ITALIC, false));
         meta.lore(List.of(
                 Component.empty(),
                 Component.text("Десен клик за да отвориш!")
-                        .color(NamedTextColor.DARK_AQUA)
+                        .color(NamedTextColor.DARK_PURPLE)
                         .decoration(TextDecoration.ITALIC, false)
         ));
         meta.getPersistentDataContainer().set(crateKey, PersistentDataType.BYTE, (byte) 1);

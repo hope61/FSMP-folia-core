@@ -27,24 +27,24 @@ public class VoteCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.vote")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         List<String> links = config.getVoteLinks();
-        sender.sendMessage(Component.text(lang.getVoteHeader(), NamedTextColor.AQUA).decorate(TextDecoration.BOLD));
+        sender.sendMessage(Component.text(lang.getVoteHeader(), NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD));
         if (links.isEmpty()) {
-            sender.sendMessage(Component.text(lang.getVoteNoLinks(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getVoteNoLinks(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         for (int i = 0; i < links.size(); i++) {
             String link = links.get(i);
             Component btn = Component.text()
-                    .append(Component.text("  ▶ ", NamedTextColor.DARK_AQUA))
-                    .append(Component.text(lang.getVoteSite(i + 1), NamedTextColor.AQUA)
+                    .append(Component.text("  ▶ ", NamedTextColor.DARK_PURPLE))
+                    .append(Component.text(lang.getVoteSite(i + 1), NamedTextColor.LIGHT_PURPLE)
                             .decorate(TextDecoration.UNDERLINED)
                             .clickEvent(ClickEvent.openUrl(link))
-                            .hoverEvent(HoverEvent.showText(Component.text(link, NamedTextColor.DARK_AQUA))))
+                            .hoverEvent(HoverEvent.showText(Component.text(link, NamedTextColor.DARK_PURPLE))))
                     .build();
             sender.sendMessage(btn);
         }

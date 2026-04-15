@@ -21,12 +21,12 @@ public class HealCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHealPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getHealPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (!player.hasPermission("fsmp.heal")) {
-            player.sendMessage(Component.text(lang.getHealNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getHealNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
@@ -34,7 +34,7 @@ public class HealCommand implements CommandExecutor {
         double maxHealth = maxHealthAttr != null ? maxHealthAttr.getValue() : 20.0;
         player.setHealth(maxHealth);
         player.setFireTicks(0);
-        player.sendMessage(Component.text(lang.getHealSuccess(), NamedTextColor.AQUA));
+        player.sendMessage(Component.text(lang.getHealSuccess(), NamedTextColor.LIGHT_PURPLE));
         return true;
     }
 }

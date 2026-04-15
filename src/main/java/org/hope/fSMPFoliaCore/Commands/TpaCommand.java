@@ -33,33 +33,33 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (!player.hasPermission("fsmp.tpa")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         if (args.length == 0) {
-            player.sendMessage(Component.text(lang.getTpaUsage(), NamedTextColor.DARK_AQUA));
+            player.sendMessage(Component.text(lang.getTpaUsage(), NamedTextColor.DARK_PURPLE));
             return true;
         }
         Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null || target.equals(player)) {
             if (target != null && target.equals(player)) {
-                player.sendMessage(Component.text(lang.getTpaCannotSelf(), NamedTextColor.DARK_AQUA));
+                player.sendMessage(Component.text(lang.getTpaCannotSelf(), NamedTextColor.DARK_PURPLE));
             } else {
-                player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_AQUA));
+                player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_PURPLE));
             }
             return true;
         }
 
         tpaManager.createRequest(player.getUniqueId(), target.getUniqueId());
-        player.sendMessage(Component.text(lang.getTpaSent(target.getName()), NamedTextColor.DARK_AQUA));
+        player.sendMessage(Component.text(lang.getTpaSent(target.getName()), NamedTextColor.DARK_PURPLE));
 
         // Notify target with clickable buttons
         Component notification = Component.text()
-                .append(Component.text(lang.getTpaReceived(player.getName()), NamedTextColor.AQUA))
+                .append(Component.text(lang.getTpaReceived(player.getName()), NamedTextColor.LIGHT_PURPLE))
                 .appendNewline()
                 .append(Component.text(lang.getTpaAcceptButton(), NamedTextColor.GREEN)
                         .clickEvent(ClickEvent.runCommand("/tpaccept"))

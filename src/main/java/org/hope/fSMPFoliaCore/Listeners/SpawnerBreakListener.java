@@ -29,6 +29,6 @@ public class SpawnerBreakListener implements Listener {
         if (player.hasPermission("fsmp.spawner.bypass")) return;
 
         event.setCancelled(true);
-        player.sendMessage(Component.text(lang.getSpawnerBreakDenied(), NamedTextColor.DARK_AQUA).decorate(TextDecoration.BOLD));
+        player.sendMessage(Component.text(lang.getSpawnerBreakDenied(), NamedTextColor.DARK_PURPLE).decorate(TextDecoration.BOLD));
     }
 }

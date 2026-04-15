@@ -32,14 +32,14 @@ public class PlaytimeCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.playtime")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
             return true;
         }
 
         if (args.length == 0) {
             // Show own playtime
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(Component.text(lang.getPlaytimePlayersOnly(), NamedTextColor.DARK_AQUA));
+                sender.sendMessage(Component.text(lang.getPlaytimePlayersOnly(), NamedTextColor.DARK_PURPLE));
                 return true;
             }
             showPlaytime(sender, player.getUniqueId(), player.getName());
@@ -48,7 +48,7 @@ public class PlaytimeCommand implements CommandExecutor, TabCompleter {
             Player target = Bukkit.getPlayerExact(args[0]);
             if (target == null) {
                 // Try offline lookup for total only
-                sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_AQUA));
+                sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_PURPLE));
                 return true;
             }
             showPlaytime(sender, target.getUniqueId(), target.getName());
@@ -65,7 +65,7 @@ public class PlaytimeCommand implements CommandExecutor, TabCompleter {
                 lang.getPlaytimeInfo(name,
                         PlaytimeManager.format(combined),
                         PlaytimeManager.format(session)),
-                NamedTextColor.AQUA));
+                NamedTextColor.LIGHT_PURPLE));
     }
 
     @Override

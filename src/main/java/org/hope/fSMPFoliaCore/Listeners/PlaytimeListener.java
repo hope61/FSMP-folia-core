@@ -35,7 +35,7 @@ public class PlaytimeListener implements Listener {
             crateManager.recordDailyClaim(player.getUniqueId());
             player.getScheduler().runDelayed(plugin, t -> {
                 crateManager.addCrates(player, 1);
-                player.sendMessage(Component.text(lang.getCratesDailyLogin(), NamedTextColor.AQUA));
+                player.sendMessage(Component.text(lang.getCratesDailyLogin(), NamedTextColor.LIGHT_PURPLE));
             }, null, 1L);
         }
     }
