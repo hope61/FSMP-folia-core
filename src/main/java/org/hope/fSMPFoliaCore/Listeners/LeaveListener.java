@@ -29,10 +29,10 @@ public class LeaveListener implements Listener {
         String after  = parts.length > 1 ? parts[1] : "";
 
         Component message = Component.text()
-                .append(Component.text("◀ ", configManager.getLeaveArrowColor()))
-                .append(Component.text(before, configManager.getLeaveTextColor()))
-                .append(Component.text(event.getPlayer().getName(), configManager.getLeaveNameColor()).decorate(TextDecoration.BOLD))
-                .append(Component.text(after, configManager.getLeaveTextColor()))
+                .append(Component.text("◀ ", lang.secondary()))
+                .append(Component.text(before, lang.primary()))
+                .append(Component.text(event.getPlayer().getName(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(after, lang.primary()))
                 .build();
 
         event.quitMessage(message);

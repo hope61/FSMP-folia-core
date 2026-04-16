@@ -2,7 +2,6 @@ package org.hope.fSMPFoliaCore.Listeners;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +24,10 @@ public class AfkListener implements Listener {
     private final CrateManager crateManager;
 
     private ScheduledTask checkTask;
+
+    // Players currently being kicked (prevents repeated kick attempts)
+    private final java.util.Set<java.util.UUID> kickPending =
+            java.util.Collections.newSetFromMap(new java.util.concurrent.ConcurrentHashMap<>());
 
     public AfkListener(FSMPFoliaCore plugin, AfkManager afkManager, ConfigManager config,
                        LangManager lang, CrateManager crateManager) {
@@ -58,7 +61,7 @@ public class AfkListener implements Listener {
             // Auto-AFK detection
             if (!afkManager.isAfk(player.getUniqueId()) && timeoutMs > 0 && idle >= timeoutMs) {
                 afkManager.setAfk(player.getUniqueId(), true);
-                Bukkit.broadcast(Component.text(lang.getAfkEnter(player.getName()), NamedTextColor.DARK_PURPLE));
+                Bukkit.broadcast(Component.text(lang.getAfkEnter(player.getName()), lang.secondary()));
             }
 
             // Crate reward for AFK time — inventory ops must run on player's region thread
@@ -67,15 +70,18 @@ public class AfkListener implements Listener {
                     crateManager.recordHourlyClaim(player.getUniqueId());
                     player.getScheduler().run(plugin, t -> {
                         crateManager.addCrates(player, 1);
-                        player.sendMessage(Component.text(lang.getCratesReceivedAfk(), NamedTextColor.LIGHT_PURPLE));
+                        player.sendMessage(Component.text(lang.getCratesReceivedAfk(), lang.primary()));
                     }, null);
                 }
             }
 
-            // Auto-kick
-            if (kickAfterMs > 0 && idle >= kickAfterMs) {
-                player.getScheduler().run(plugin, task ->
-                        player.kick(Component.text(lang.getAfkKicked(), NamedTextColor.DARK_PURPLE)), null);
+            // Auto-kick — only once per player
+            if (kickAfterMs > 0 && idle >= kickAfterMs && !kickPending.contains(player.getUniqueId())) {
+                kickPending.add(player.getUniqueId());
+                player.getScheduler().run(plugin, task -> {
+                    kickPending.remove(player.getUniqueId());
+                    player.kick(Component.text(lang.getAfkKicked(), lang.secondary()));
+                }, () -> kickPending.remove(player.getUniqueId()));
             }
         }
     }
@@ -93,7 +99,7 @@ public class AfkListener implements Listener {
 
         if (wasAfk) {
             afkManager.setAfk(player.getUniqueId(), false);
-            Bukkit.broadcast(Component.text(lang.getAfkLeave(player.getName()), NamedTextColor.DARK_PURPLE));
+            Bukkit.broadcast(Component.text(lang.getAfkLeave(player.getName()), lang.secondary()));
         }
     }
 
@@ -104,6 +110,8 @@ public class AfkListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        afkManager.onQuit(event.getPlayer().getUniqueId());
+        java.util.UUID uuid = event.getPlayer().getUniqueId();
+        afkManager.onQuit(uuid);
+        kickPending.remove(uuid);
     }
 }

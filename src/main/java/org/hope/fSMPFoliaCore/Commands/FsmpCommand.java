@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,12 +27,12 @@ public class FsmpCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.reload")) {
-            sender.sendMessage(Component.text(lang.getFsmpNoPermission(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getFsmpNoPermission(), lang.secondary()));
             return true;
         }
 
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-            sender.sendMessage(Component.text(lang.getFsmpUsage(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getFsmpUsage(), lang.secondary()));
             return true;
         }
 
@@ -41,7 +40,9 @@ public class FsmpCommand implements CommandExecutor, TabCompleter {
         lang.reload();
         announcementManager.stop();
         announcementManager.start();
-        sender.sendMessage(Component.text(lang.getFsmpReloadSuccess(), NamedTextColor.LIGHT_PURPLE));
+        announcementManager.stopVoicechat();
+        announcementManager.startVoicechat();
+        sender.sendMessage(Component.text(lang.getFsmpReloadSuccess(), lang.primary()));
         return true;
     }
 

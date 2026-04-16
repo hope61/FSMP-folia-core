@@ -18,6 +18,7 @@ public class AnnouncementManager {
     private static final String PADDING = "              ";
 
     private ScheduledTask currentTask;
+    private ScheduledTask voicechatTask;
 
     public AnnouncementManager(FSMPFoliaCore plugin, ConfigManager configManager, LangManager lang) {
         this.plugin = plugin;
@@ -43,6 +44,28 @@ public class AnnouncementManager {
         }
     }
 
+    public void startVoicechat() {
+        stopVoicechat();
+        if (!configManager.isVoicechatAnnouncementEnabled()) return;
+        long intervalTicks = configManager.getVoicechatAnnouncementInterval() * 20L;
+        if (intervalTicks <= 0) return;
+        // Initial delay = half the voicechat interval so it never fires at the same time as the discord announcement
+        long initialDelay = Math.max(1L, intervalTicks / 2);
+        voicechatTask = plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(
+                plugin,
+                task -> sendVoicechatAnnouncement(),
+                initialDelay,
+                intervalTicks
+        );
+    }
+
+    public void stopVoicechat() {
+        if (voicechatTask != null) {
+            voicechatTask.cancel();
+            voicechatTask = null;
+        }
+    }
+
     public void setAfkManager(AfkManager afkManager) {
         this.afkManager = afkManager;
     }
@@ -63,28 +86,72 @@ public class AnnouncementManager {
         Bukkit.broadcast(buildAnnouncement());
     }
 
-    private Component buildAnnouncement() {
+    private void sendVoicechatAnnouncement() {
+        if (!configManager.isVoicechatAnnouncementEnabled()) return;
+        if (plugin.getServer().getOnlinePlayers().isEmpty()) return;
+        if (afkManager != null && afkManager.allAfk(plugin.getServer().getOnlinePlayers())) return;
+        Bukkit.broadcast(buildVoicechatAnnouncement());
+    }
+
+    private Component buildVoicechatAnnouncement() {
         Component bar = Component.text(BAR)
-                .color(configManager.getBarColor())
+                .color(lang.secondary())
                 .decorate(TextDecoration.BOLD);
 
         Component title = Component.text()
-                .append(Component.text("◆ ", configManager.getBarColor()))
-                .append(Component.text(lang.getDiscordTitle(), configManager.getButtonColor()).decorate(TextDecoration.BOLD))
-                .append(Component.text(" ◆", configManager.getBarColor()))
+                .append(Component.text("◆ ", lang.secondary()))
+                .append(Component.text(lang.getVoicechatTitle(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ◆", lang.secondary()))
+                .build();
+
+        Component message = Component.text(lang.getVoicechatMessage())
+                .color(lang.primary());
+
+        Component button = Component.text()
+                .append(Component.text("➤ ", lang.secondary()))
+                .append(Component.text(lang.getVoicechatButtonText(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ◀", lang.secondary()))
+                .clickEvent(ClickEvent.openUrl(configManager.getVoicechatModLink()))
+                .hoverEvent(HoverEvent.showText(
+                        Component.text(lang.getVoicechatHoverText())
+                                .color(lang.secondary())))
+                .build();
+
+        return Component.text()
+                .append(bar)
+                .appendNewline()
+                .append(Component.text(PADDING)).append(title)
+                .appendNewline()
+                .append(Component.text(PADDING)).append(message)
+                .appendNewline()
+                .append(Component.text(PADDING)).append(button)
+                .appendNewline()
+                .append(bar)
+                .build();
+    }
+
+    private Component buildAnnouncement() {
+        Component bar = Component.text(BAR)
+                .color(lang.secondary())
+                .decorate(TextDecoration.BOLD);
+
+        Component title = Component.text()
+                .append(Component.text("◆ ", lang.secondary()))
+                .append(Component.text(lang.getDiscordTitle(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ◆", lang.secondary()))
                 .build();
 
         Component message = Component.text(lang.getDiscordMessage())
-                .color(configManager.getMessageColor());
+                .color(lang.primary());
 
         Component button = Component.text()
-                .append(Component.text("➤ ", configManager.getBarColor()))
-                .append(Component.text(lang.getDiscordButtonText(), configManager.getButtonColor()).decorate(TextDecoration.BOLD))
-                .append(Component.text(" ◀", configManager.getBarColor()))
+                .append(Component.text("➤ ", lang.secondary()))
+                .append(Component.text(lang.getDiscordButtonText(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ◀", lang.secondary()))
                 .clickEvent(ClickEvent.openUrl(configManager.getDiscordLink()))
                 .hoverEvent(HoverEvent.showText(
                         Component.text(lang.getDiscordHoverText())
-                                .color(configManager.getButtonHoverColor())))
+                                .color(lang.secondary())))
                 .build();
 
         return Component.text()

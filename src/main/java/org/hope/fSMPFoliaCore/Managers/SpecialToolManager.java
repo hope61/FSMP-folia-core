@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Managers;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -23,9 +22,11 @@ public class SpecialToolManager {
     private final NamespacedKey expiresKey;
     private final NamespacedKey typeKey;
     private final FSMPFoliaCore plugin;
+    private final LangManager lang;
 
-    public SpecialToolManager(FSMPFoliaCore plugin) {
+    public SpecialToolManager(FSMPFoliaCore plugin, LangManager lang) {
         this.plugin = plugin;
+        this.lang = lang;
         this.expiresKey = new NamespacedKey(plugin, KEY_EXPIRES);
         this.typeKey    = new NamespacedKey(plugin, KEY_TYPE);
     }
@@ -62,16 +63,16 @@ public class SpecialToolManager {
         ItemStack item = new ItemStack(mat);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("✦ Специална " + typeName + " ✦")
-                .color(NamedTextColor.GOLD)
+                .color(lang.warning())
                 .decorate(TextDecoration.BOLD)
                 .decoration(TextDecoration.ITALIC, false));
 
         meta.lore(List.of(
                 Component.empty(),
-                Component.text("Способност: ").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
-                        .append(Component.text(ability).color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)),
+                Component.text("Способност: ").color(lang.info()).decoration(TextDecoration.ITALIC, false)
+                        .append(Component.text(ability).color(lang.warning()).decoration(TextDecoration.ITALIC, false)),
                 Component.empty(),
-                Component.text("Изтича след " + lifetimeHours + "ч").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)
+                Component.text("Изтича след " + lifetimeHours + "ч").color(lang.error()).decoration(TextDecoration.ITALIC, false)
         ));
 
         meta.addEnchant(Enchantment.EFFICIENCY, 5, true);

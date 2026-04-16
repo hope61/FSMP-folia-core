@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,17 +22,17 @@ public class SetSpawnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.setspawn")) {
-            player.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getSpawnNoPermission(), lang.secondary()));
             return true;
         }
 
         spawnManager.setSpawn(player.getLocation());
-        player.sendMessage(Component.text(lang.getSpawnSet(), NamedTextColor.LIGHT_PURPLE));
+        player.sendMessage(Component.text(lang.getSpawnSet(), lang.primary()));
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
         return true;
     }

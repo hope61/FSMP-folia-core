@@ -34,16 +34,16 @@ public class DiscordCommand implements CommandExecutor {
 
     private Component buildDiscordMessage() {
         Component message = Component.text(lang.getDiscordMessage())
-                .color(configManager.getMessageColor());
+                .color(lang.primary());
 
         Component button = Component.text()
-                .append(Component.text("➤ ", configManager.getBarColor()))
-                .append(Component.text(lang.getDiscordButtonText(), configManager.getButtonColor()).decorate(TextDecoration.BOLD))
-                .append(Component.text(" ◀", configManager.getBarColor()))
+                .append(Component.text("➤ ", lang.secondary()))
+                .append(Component.text(lang.getDiscordButtonText(), lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ◀", lang.secondary()))
                 .clickEvent(ClickEvent.openUrl(configManager.getDiscordLink()))
                 .hoverEvent(HoverEvent.showText(
                         Component.text(lang.getDiscordHoverText())
-                                .color(configManager.getButtonHoverColor())))
+                                .color(lang.secondary())))
                 .build();
 
         return Component.text()

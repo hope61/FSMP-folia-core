@@ -8,17 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.hope.fSMPFoliaCore.Managers.ConfigManager;
 import org.hope.fSMPFoliaCore.Managers.LangManager;
 import org.hope.fSMPFoliaCore.hooks.VaultHook;
 
 public class ChatListener implements Listener {
-    private final ConfigManager configManager;
     private final LangManager lang;
     private final VaultHook vault;
 
-    public ChatListener(ConfigManager configManager, LangManager lang, VaultHook vault) {
-        this.configManager = configManager;
+    public ChatListener(LangManager lang, VaultHook vault) {
         this.lang = lang;
         this.vault = vault;
     }
@@ -48,10 +45,10 @@ public class ChatListener implements Listener {
         event.renderer((source, displayName, message, viewer) ->
                 Component.text()
                         .append(finalPrefix)
-                        .append(Component.text(player.getName()).color(configManager.getChatNameColor()))
+                        .append(Component.text(player.getName()).color(lang.primary()))
                         .append(finalSuffix)
-                        .append(Component.text(lang.getChatSeparator()).color(configManager.getChatSeparatorColor()))
-                        .append(message.color(configManager.getChatMessageColor()))
+                        .append(Component.text(lang.getChatSeparator()).color(lang.secondary()))
+                        .append(message.color(lang.white()))
                         .build()
         );
     }

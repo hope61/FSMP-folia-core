@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,11 +23,11 @@ public class AfkCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getAfkPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getAfkPlayersOnly(), lang.secondary()));
             return true;
         }
         if (!player.hasPermission("fsmp.afk")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
 
@@ -37,11 +36,11 @@ public class AfkCommand implements CommandExecutor {
 
         if (nowAfk) {
             Bukkit.broadcast(Component.text(
-                    lang.getAfkEnter(player.getName()), NamedTextColor.DARK_PURPLE));
+                    lang.getAfkEnter(player.getName()), lang.secondary()));
         } else {
             afkManager.updateActivity(player);
             Bukkit.broadcast(Component.text(
-                    lang.getAfkLeave(player.getName()), NamedTextColor.DARK_PURPLE));
+                    lang.getAfkLeave(player.getName()), lang.secondary()));
         }
         return true;
     }

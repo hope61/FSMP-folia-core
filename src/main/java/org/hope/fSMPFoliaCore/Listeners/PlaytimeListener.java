@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,7 +34,7 @@ public class PlaytimeListener implements Listener {
             crateManager.recordDailyClaim(player.getUniqueId());
             player.getScheduler().runDelayed(plugin, t -> {
                 crateManager.addCrates(player, 1);
-                player.sendMessage(Component.text(lang.getCratesDailyLogin(), NamedTextColor.LIGHT_PURPLE));
+                player.sendMessage(Component.text(lang.getCratesDailyLogin(), lang.primary()));
             }, null, 1L);
         }
     }

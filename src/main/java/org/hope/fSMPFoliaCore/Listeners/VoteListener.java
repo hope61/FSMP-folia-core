@@ -2,7 +2,6 @@ package org.hope.fSMPFoliaCore.Listeners;
 
 import com.vexsoftware.votifier.model.VotifierEvent;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,14 +35,14 @@ public class VoteListener implements Listener {
         int crates = config.getVoteCratesPerVote();
 
         plugin.getServer().getGlobalRegionScheduler().run(plugin, task -> {
-            Bukkit.broadcast(Component.text(lang.getVoteBroadcast(username, crates), NamedTextColor.LIGHT_PURPLE));
+            Bukkit.broadcast(Component.text(lang.getVoteBroadcast(username, crates), lang.primary()));
 
             Player player = Bukkit.getPlayerExact(username);
             if (player != null) {
                 // Online — give crates on player's region thread
                 player.getScheduler().run(plugin, t -> {
                     crateManager.addCrates(player, crates);
-                    player.sendMessage(Component.text(lang.getVoteReceived(crates), NamedTextColor.LIGHT_PURPLE));
+                    player.sendMessage(Component.text(lang.getVoteReceived(crates), lang.primary()));
                 }, null);
             } else {
                 // Offline — persist so they get crates on next login

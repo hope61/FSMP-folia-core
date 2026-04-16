@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,24 +23,24 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getGamemodePlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getGamemodePlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.gamemode")) {
-            player.sendMessage(Component.text(lang.getGamemodeNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getGamemodeNoPermission(), lang.secondary()));
             return true;
         }
 
         GameMode mode = resolveGamemode(label, args);
 
         if (mode == null) {
-            player.sendMessage(Component.text(lang.getGamemodeUsage(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getGamemodeUsage(), lang.secondary()));
             return true;
         }
 
         player.setGameMode(mode);
-        player.sendMessage(Component.text(lang.getGamemodeChanged(lang.getGamemodeName(mode)), NamedTextColor.LIGHT_PURPLE));
+        player.sendMessage(Component.text(lang.getGamemodeChanged(lang.getGamemodeName(mode)), lang.primary()));
         return true;
     }
 

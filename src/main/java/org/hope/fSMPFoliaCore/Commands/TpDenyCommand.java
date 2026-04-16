@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,26 +26,26 @@ public class TpDenyCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player target)) {
-            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), lang.secondary()));
             return true;
         }
         if (!target.hasPermission("fsmp.tpa")) {
-            target.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            target.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
 
         TpaManager.Request req = tpaManager.removeRequest(target.getUniqueId());
         if (req == null) {
-            target.sendMessage(Component.text(lang.getTpaNoPending(), NamedTextColor.DARK_PURPLE));
+            target.sendMessage(Component.text(lang.getTpaNoPending(), lang.secondary()));
             return true;
         }
 
         Player requester = Bukkit.getPlayer(req.from());
         target.sendMessage(Component.text(lang.getTpaDeniedTarget(
-                requester != null ? requester.getName() : lang.getTpaUnknownPlayer()), NamedTextColor.DARK_PURPLE));
+                requester != null ? requester.getName() : lang.getTpaUnknownPlayer()), lang.secondary()));
 
         if (requester != null) {
-            requester.sendMessage(Component.text(lang.getTpaDenied(target.getName()), NamedTextColor.DARK_PURPLE));
+            requester.sendMessage(Component.text(lang.getTpaDenied(target.getName()), lang.secondary()));
             soundManager.play(requester, "tpa-denied");
         }
         return true;

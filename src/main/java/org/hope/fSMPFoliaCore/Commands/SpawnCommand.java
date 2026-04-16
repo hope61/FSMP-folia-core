@@ -2,7 +2,6 @@ package org.hope.fSMPFoliaCore.Commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Location;
@@ -41,18 +40,18 @@ public class SpawnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getSpawnPlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.spawn")) {
-            player.sendMessage(Component.text(lang.getSpawnNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getSpawnNoPermission(), lang.secondary()));
             return true;
         }
 
         Location spawn = spawnManager.getSpawn();
         if (spawn == null) {
-            player.sendMessage(Component.text(lang.getSpawnNotSet(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getSpawnNotSet(), lang.secondary()));
             return true;
         }
 
@@ -65,7 +64,7 @@ public class SpawnCommand implements CommandExecutor {
                 long remaining = cooldownSeconds - elapsed;
                 if (remaining > 0) {
                     player.sendActionBar(Component.text(
-                            lang.getSpawnCooldown(remaining), NamedTextColor.RED));
+                            lang.getSpawnCooldown(remaining), lang.error()));
                     return true;
                 }
             }
@@ -95,7 +94,7 @@ public class SpawnCommand implements CommandExecutor {
                 t.cancel();
                 warmups.remove(player.getUniqueId());
                 player.sendActionBar(Component.empty());
-                player.sendMessage(Component.text(lang.getSpawnWarmupCancelled(), NamedTextColor.DARK_PURPLE));
+                player.sendMessage(Component.text(lang.getSpawnWarmupCancelled(), lang.secondary()));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.5f);
                 return;
             }
@@ -133,10 +132,10 @@ public class SpawnCommand implements CommandExecutor {
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.2f);
                 player.showTitle(Title.title(
                         Component.text(lang.getSpawnTitle())
-                                .color(NamedTextColor.LIGHT_PURPLE)
+                                .color(lang.primary())
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getSpawnTeleported())
-                                .color(NamedTextColor.DARK_PURPLE),
+                                .color(lang.secondary()),
                         Title.Times.times(
                                 Duration.ofMillis(200),
                                 Duration.ofMillis(1800),
@@ -157,11 +156,11 @@ public class SpawnCommand implements CommandExecutor {
         for (int i = 0; i < barLength - filled; i++)   emptyStr.append('█');
 
         return Component.text()
-                .append(Component.text(filledStr.toString()).color(NamedTextColor.LIGHT_PURPLE))
-                .append(Component.text(emptyStr.toString()).color(NamedTextColor.DARK_PURPLE))
+                .append(Component.text(filledStr.toString()).color(lang.primary()))
+                .append(Component.text(emptyStr.toString()).color(lang.secondary()))
                 .append(Component.text(" "))
-                .append(Component.text(secondsLeft + "с").color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
-                .append(Component.text(" — " + standStillText).color(NamedTextColor.GRAY))
+                .append(Component.text(secondsLeft + "с").color(lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" — " + standStillText).color(lang.info()))
                 .build();
     }
 

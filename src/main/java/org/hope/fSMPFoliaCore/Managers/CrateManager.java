@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Managers;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -24,6 +23,7 @@ public class CrateManager {
     public static final String CRATE_KEY = "fsmp_crate";
 
     private final FSMPFoliaCore plugin;
+    private final LangManager lang;
     private final NamespacedKey crateKey;
     private File file;
     private FileConfiguration data;
@@ -33,8 +33,9 @@ public class CrateManager {
     // Last hourly crate award timestamp per player
     private final Map<UUID, Long> hourlyClaim = new ConcurrentHashMap<>();
 
-    public CrateManager(FSMPFoliaCore plugin) {
+    public CrateManager(FSMPFoliaCore plugin, LangManager lang) {
         this.plugin = plugin;
+        this.lang = lang;
         this.crateKey = new NamespacedKey(plugin, CRATE_KEY);
         load();
     }
@@ -63,7 +64,9 @@ public class CrateManager {
         Map<UUID, Long> hSnap = Map.copyOf(hourlyClaim);
         plugin.getServer().getAsyncScheduler().runNow(plugin, t -> {
             YamlConfiguration yml = new YamlConfiguration();
-            for (UUID uuid : dSnap.keySet()) {
+            java.util.Set<UUID> allUuids = new java.util.HashSet<>(dSnap.keySet());
+            allUuids.addAll(hSnap.keySet());
+            for (UUID uuid : allUuids) {
                 String k = uuid.toString();
                 yml.set(k + ".daily", dSnap.getOrDefault(uuid, 0L));
                 yml.set(k + ".hourly", hSnap.getOrDefault(uuid, 0L));
@@ -79,13 +82,13 @@ public class CrateManager {
         ItemStack item = new ItemStack(Material.CHEST, amount);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("✦ FSMP Кутия ✦")
-                .color(NamedTextColor.LIGHT_PURPLE)
+                .color(lang.primary())
                 .decorate(TextDecoration.BOLD)
                 .decoration(TextDecoration.ITALIC, false));
         meta.lore(List.of(
                 Component.empty(),
                 Component.text("Десен клик за да отвориш!")
-                        .color(NamedTextColor.DARK_PURPLE)
+                        .color(lang.secondary())
                         .decoration(TextDecoration.ITALIC, false)
         ));
         meta.getPersistentDataContainer().set(crateKey, PersistentDataType.BYTE, (byte) 1);

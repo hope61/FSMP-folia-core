@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,19 +25,19 @@ public class EditHomeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home.edit")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), lang.secondary()));
             return true;
         }
 
         // /edithome <name> rename <newname>
         // /edithome <name> relocate
         if (args.length < 2) {
-            player.sendMessage(Component.text(lang.getEdithomeUsage(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getEdithomeUsage(), lang.secondary()));
             return true;
         }
 
@@ -46,33 +45,33 @@ public class EditHomeCommand implements CommandExecutor, TabCompleter {
         String action = args[1].toLowerCase();
 
         if (!homeManager.hasHome(player.getUniqueId(), name)) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), lang.secondary()));
             return true;
         }
 
         switch (action) {
             case "rename" -> {
                 if (args.length < 3) {
-                    player.sendMessage(Component.text(lang.getEdithomeUsage(), NamedTextColor.DARK_PURPLE));
+                    player.sendMessage(Component.text(lang.getEdithomeUsage(), lang.secondary()));
                     return true;
                 }
                 String newName = args[2];
                 if (!homeManager.isValidName(newName)) {
-                    player.sendMessage(Component.text(lang.getHomeInvalidName(), NamedTextColor.DARK_PURPLE));
+                    player.sendMessage(Component.text(lang.getHomeInvalidName(), lang.secondary()));
                     return true;
                 }
                 if (homeManager.hasHome(player.getUniqueId(), newName)) {
-                    player.sendMessage(Component.text(lang.getHomeAlreadyExistsRename(newName), NamedTextColor.DARK_PURPLE));
+                    player.sendMessage(Component.text(lang.getHomeAlreadyExistsRename(newName), lang.secondary()));
                     return true;
                 }
                 homeManager.renameHome(player.getUniqueId(), name, newName);
-                player.sendMessage(Component.text(lang.getHomeRenamed(name, newName), NamedTextColor.LIGHT_PURPLE));
+                player.sendMessage(Component.text(lang.getHomeRenamed(name, newName), lang.primary()));
             }
             case "relocate" -> {
                 homeManager.setHome(player.getUniqueId(), name, player.getLocation());
-                player.sendMessage(Component.text(lang.getHomeRelocated(name), NamedTextColor.LIGHT_PURPLE));
+                player.sendMessage(Component.text(lang.getHomeRelocated(name), lang.primary()));
             }
-            default -> player.sendMessage(Component.text(lang.getEdithomeUsage(), NamedTextColor.DARK_PURPLE));
+            default -> player.sendMessage(Component.text(lang.getEdithomeUsage(), lang.secondary()));
         }
 
         return true;

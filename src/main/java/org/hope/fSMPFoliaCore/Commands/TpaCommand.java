@@ -3,7 +3,6 @@ package org.hope.fSMPFoliaCore.Commands;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,41 +32,41 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), lang.secondary()));
             return true;
         }
         if (!player.hasPermission("fsmp.tpa")) {
-            player.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
         if (args.length == 0) {
-            player.sendMessage(Component.text(lang.getTpaUsage(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getTpaUsage(), lang.secondary()));
             return true;
         }
         Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null || target.equals(player)) {
             if (target != null && target.equals(player)) {
-                player.sendMessage(Component.text(lang.getTpaCannotSelf(), NamedTextColor.DARK_PURPLE));
+                player.sendMessage(Component.text(lang.getTpaCannotSelf(), lang.secondary()));
             } else {
-                player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), NamedTextColor.DARK_PURPLE));
+                player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), lang.secondary()));
             }
             return true;
         }
 
         tpaManager.createRequest(player.getUniqueId(), target.getUniqueId());
-        player.sendMessage(Component.text(lang.getTpaSent(target.getName()), NamedTextColor.DARK_PURPLE));
+        player.sendMessage(Component.text(lang.getTpaSent(target.getName()), lang.secondary()));
 
         // Notify target with clickable buttons
         Component notification = Component.text()
-                .append(Component.text(lang.getTpaReceived(player.getName()), NamedTextColor.LIGHT_PURPLE))
+                .append(Component.text(lang.getTpaReceived(player.getName()), lang.primary()))
                 .appendNewline()
-                .append(Component.text(lang.getTpaAcceptButton(), NamedTextColor.GREEN)
+                .append(Component.text(lang.getTpaAcceptButton(), lang.success())
                         .clickEvent(ClickEvent.runCommand("/tpaccept"))
-                        .hoverEvent(HoverEvent.showText(Component.text("/tpaccept", NamedTextColor.GREEN))))
-                .append(Component.text("  ", NamedTextColor.WHITE))
-                .append(Component.text(lang.getTpaDenyButton(), NamedTextColor.RED)
+                        .hoverEvent(HoverEvent.showText(Component.text("/tpaccept", lang.success()))))
+                .append(Component.text("  ", lang.white()))
+                .append(Component.text(lang.getTpaDenyButton(), lang.error())
                         .clickEvent(ClickEvent.runCommand("/tpadeny"))
-                        .hoverEvent(HoverEvent.showText(Component.text("/tpadeny", NamedTextColor.RED))))
+                        .hoverEvent(HoverEvent.showText(Component.text("/tpadeny", lang.error()))))
                 .build();
         target.sendMessage(notification);
         return true;

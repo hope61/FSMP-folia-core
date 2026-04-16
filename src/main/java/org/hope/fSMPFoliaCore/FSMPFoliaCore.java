@@ -42,8 +42,8 @@ public final class FSMPFoliaCore extends JavaPlugin {
         afkManager = new AfkManager();
         tpaManager = new TpaManager();
         portalLockManager = new PortalLockManager(this);
-        crateManager = new CrateManager(this);
-        specialToolManager = new SpecialToolManager(this);
+        crateManager = new CrateManager(this, langManager);
+        specialToolManager = new SpecialToolManager(this, langManager);
         soundManager = new SoundManager(configManager);
         voteStorageManager = new VoteStorageManager(this);
 
@@ -51,6 +51,7 @@ public final class FSMPFoliaCore extends JavaPlugin {
         announcementManager = new AnnouncementManager(this, configManager, langManager);
         announcementManager.setAfkManager(afkManager);
         announcementManager.start();
+        announcementManager.startVoicechat();
 
 // ── Commands ─────────────────────────────────────────────────
         MsgCommand msgCommand = new MsgCommand(configManager, langManager, messageManager);
@@ -226,7 +227,7 @@ public final class FSMPFoliaCore extends JavaPlugin {
             }
 
             getServer().getPluginManager().registerEvents(
-                    new ChatListener(configManager, langManager, vault), this);
+                    new ChatListener(langManager, vault), this);
 
             // Vote (soft-depend — Votifier enables after us, so check here)
             if (getServer().getPluginManager().isPluginEnabled("NuVotifier")
@@ -246,6 +247,9 @@ public final class FSMPFoliaCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (announcementManager != null) announcementManager.stop();
+        if (announcementManager != null) {
+            announcementManager.stop();
+            announcementManager.stopVoicechat();
+        }
     }
 }

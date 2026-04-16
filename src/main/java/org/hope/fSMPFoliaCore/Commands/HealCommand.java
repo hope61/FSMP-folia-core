@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.Command;
@@ -21,12 +20,12 @@ public class HealCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHealPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getHealPlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.heal")) {
-            player.sendMessage(Component.text(lang.getHealNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHealNoPermission(), lang.secondary()));
             return true;
         }
 
@@ -34,7 +33,7 @@ public class HealCommand implements CommandExecutor {
         double maxHealth = maxHealthAttr != null ? maxHealthAttr.getValue() : 20.0;
         player.setHealth(maxHealth);
         player.setFireTicks(0);
-        player.sendMessage(Component.text(lang.getHealSuccess(), NamedTextColor.LIGHT_PURPLE));
+        player.sendMessage(Component.text(lang.getHealSuccess(), lang.primary()));
         return true;
     }
 }
