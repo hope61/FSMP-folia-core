@@ -2,7 +2,6 @@ package org.hope.fSMPFoliaCore.Commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -44,27 +43,27 @@ public class TpAcceptCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player target)) {
-            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getTpaPlayersOnly(), lang.secondary()));
             return true;
         }
         if (!target.hasPermission("fsmp.tpa")) {
-            target.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            target.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
 
         TpaManager.Request req = tpaManager.removeRequest(target.getUniqueId());
         if (req == null) {
-            target.sendMessage(Component.text(lang.getTpaNoPending(), NamedTextColor.DARK_PURPLE));
+            target.sendMessage(Component.text(lang.getTpaNoPending(), lang.secondary()));
             return true;
         }
 
         Player requester = Bukkit.getPlayer(req.from());
         if (requester == null) {
-            target.sendMessage(Component.text(lang.getTpaRequesterOffline(), NamedTextColor.DARK_PURPLE));
+            target.sendMessage(Component.text(lang.getTpaRequesterOffline(), lang.secondary()));
             return true;
         }
 
-        target.sendMessage(Component.text(lang.getTpaAcceptedTarget(requester.getName()), NamedTextColor.DARK_PURPLE));
+        target.sendMessage(Component.text(lang.getTpaAcceptedTarget(requester.getName()), lang.secondary()));
         soundManager.play(target, "tpa-accepted");
 
         int warmupSeconds = configManager.getTpaWarmupSeconds();
@@ -80,16 +79,23 @@ public class TpAcceptCommand implements CommandExecutor {
         Location startLocation = requester.getLocation().clone();
         int[] secondsLeft = { warmupSeconds };
 
-        requester.sendMessage(Component.text(lang.getTpaAccepted(target.getName()), NamedTextColor.DARK_PURPLE));
+        requester.sendMessage(Component.text(lang.getTpaAccepted(target.getName()), lang.secondary()));
         requester.sendActionBar(buildCountdownBar(warmupSeconds, warmupSeconds, lang.getTpaStandStill()));
         playTickSound(requester, warmupSeconds, warmupSeconds);
 
         ScheduledTask task = requester.getScheduler().runAtFixedRate(plugin, t -> {
+            // Guard: player may have gone offline between ticks
+            if (!requester.isOnline()) {
+                t.cancel();
+                warmups.remove(requester.getUniqueId());
+                return;
+            }
+
             if (hasMoved(startLocation, requester.getLocation())) {
                 t.cancel();
                 warmups.remove(requester.getUniqueId());
                 requester.sendActionBar(Component.empty());
-                requester.sendMessage(Component.text(lang.getTpaWarmupCancelled(), NamedTextColor.DARK_PURPLE));
+                requester.sendMessage(Component.text(lang.getTpaWarmupCancelled(), lang.secondary()));
                 requester.playSound(requester.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.5f);
                 return;
             }
@@ -134,11 +140,11 @@ public class TpAcceptCommand implements CommandExecutor {
         for (int i = 0; i < totalSeconds - secondsLeft; i++) empty.append('█');
 
         return Component.text()
-                .append(Component.text(filled.toString()).color(NamedTextColor.LIGHT_PURPLE))
-                .append(Component.text(empty.toString()).color(NamedTextColor.DARK_PURPLE))
+                .append(Component.text(filled.toString()).color(lang.primary()))
+                .append(Component.text(empty.toString()).color(lang.secondary()))
                 .append(Component.text(" "))
-                .append(Component.text(secondsLeft + "с").color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
-                .append(Component.text(" — " + label).color(NamedTextColor.GRAY))
+                .append(Component.text(secondsLeft + "с").color(lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" — " + label).color(lang.info()))
                 .build();
     }
 

@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Location;
@@ -47,10 +46,10 @@ public class JoinListener implements Listener {
             String after  = parts.length > 1 ? parts[1] : "";
 
             event.joinMessage(Component.text()
-                    .append(Component.text("➤ ", configManager.getJoinArrowColor()))
-                    .append(Component.text(before, configManager.getJoinTextColor()))
-                    .append(Component.text(event.getPlayer().getName(), configManager.getJoinNameColor()).decorate(TextDecoration.BOLD))
-                    .append(Component.text(after, configManager.getJoinTextColor()))
+                    .append(Component.text("➤ ", lang.secondary()))
+                    .append(Component.text(before, lang.primary()))
+                    .append(Component.text(event.getPlayer().getName(), lang.primary()).decorate(TextDecoration.BOLD))
+                    .append(Component.text(after, lang.primary()))
                     .build());
         }
 
@@ -59,10 +58,10 @@ public class JoinListener implements Listener {
             event.getPlayer().getScheduler().runDelayed(plugin, task -> {
                 event.getPlayer().showTitle(Title.title(
                         Component.text(lang.getJoinTitleMain())
-                                .color(NamedTextColor.LIGHT_PURPLE)
+                                .color(lang.primary())
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getJoinTitleSub())
-                                .color(NamedTextColor.DARK_PURPLE),
+                                .color(lang.secondary()),
                         Title.Times.times(
                                 Duration.ofMillis(500),
                                 Duration.ofMillis(3000),
@@ -97,7 +96,7 @@ public class JoinListener implements Listener {
                 event.getPlayer().getScheduler().runDelayed(plugin, task -> {
                     crateManager.addCrates(event.getPlayer(), finalPending);
                     event.getPlayer().sendMessage(
-                            Component.text(lang.getVotePending(finalPending), NamedTextColor.LIGHT_PURPLE));
+                            Component.text(lang.getVotePending(finalPending), lang.primary()));
                 }, null, 20L); // slight delay so player is fully loaded
             }
         });
@@ -105,13 +104,13 @@ public class JoinListener implements Listener {
 
     private void sendWelcomeGuide(org.bukkit.entity.Player player) {
         // ── border ──
-        Component border = Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━", NamedTextColor.DARK_PURPLE);
+        Component border = Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━", lang.secondary());
 
         // ── header ──
         Component header = Component.text()
-                .append(Component.text("   ✦ ", NamedTextColor.DARK_PURPLE))
-                .append(Component.text("FriendlySMP Revive", NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
-                .append(Component.text(" ✦", NamedTextColor.DARK_PURPLE))
+                .append(Component.text("   ✦ ", lang.secondary()))
+                .append(Component.text("FriendlySMP Revive", lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" ✦", lang.secondary()))
                 .build();
 
         // ── rows ──
@@ -137,19 +136,19 @@ public class JoinListener implements Listener {
         player.sendMessage(border);
         for (Component line : lines) player.sendMessage(line);
         player.sendMessage(border);
-        player.sendMessage(Component.text("  /discord за въпроси и помощ", NamedTextColor.DARK_PURPLE));
+        player.sendMessage(Component.text("  /discord за въпроси и помощ", lang.secondary()));
         player.sendMessage(border);
     }
 
-    private static Component row(String icon, String label, String value) {
+    private Component row(String icon, String label, String value) {
         String prefix = icon.isEmpty() ? "    " : " " + icon + " ";
         if (!label.isEmpty()) {
-            return Component.text(prefix, NamedTextColor.DARK_PURPLE)
-                    .append(Component.text(label + ": ", NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
-                    .append(Component.text(value, NamedTextColor.LIGHT_PURPLE));
+            return Component.text(prefix, lang.secondary())
+                    .append(Component.text(label + ": ", lang.primary()).decorate(TextDecoration.BOLD))
+                    .append(Component.text(value, lang.primary()));
         } else {
-            return Component.text(prefix, NamedTextColor.DARK_PURPLE)
-                    .append(Component.text(value, NamedTextColor.LIGHT_PURPLE));
+            return Component.text(prefix, lang.secondary())
+                    .append(Component.text(value, lang.primary()));
         }
     }
 }

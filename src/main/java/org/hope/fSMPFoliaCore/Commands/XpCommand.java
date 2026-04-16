@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,18 +25,18 @@ public class XpCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.xp")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage(Component.text(lang.getXpUsage(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getXpUsage(), lang.secondary()));
             return true;
         }
 
         String sub = args[0].toLowerCase();
         Player target = Bukkit.getPlayerExact(args[1]);
         if (target == null) {
-            sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[1]), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[1]), lang.secondary()));
             return true;
         }
 
@@ -45,30 +44,30 @@ public class XpCommand implements CommandExecutor, TabCompleter {
             case "info" -> {
                 sender.sendMessage(Component.text(
                         lang.getXpInfo(target.getName(), target.getTotalExperience(), target.getLevel()),
-                        NamedTextColor.LIGHT_PURPLE));
+                        lang.primary()));
             }
             case "reset" -> {
                 target.setTotalExperience(0);
                 target.setLevel(0);
                 target.setExp(0);
-                sender.sendMessage(Component.text(lang.getXpReset(target.getName()), NamedTextColor.DARK_PURPLE));
+                sender.sendMessage(Component.text(lang.getXpReset(target.getName()), lang.secondary()));
             }
             case "add" -> {
-                if (args.length < 3) { sender.sendMessage(Component.text(lang.getXpUsage(), NamedTextColor.DARK_PURPLE)); return true; }
+                if (args.length < 3) { sender.sendMessage(Component.text(lang.getXpUsage(), lang.secondary())); return true; }
                 int amount = parseAmount(sender, args[2]);
                 if (amount < 0) return true;
                 target.giveExp(amount);
-                sender.sendMessage(Component.text(lang.getXpAdd(target.getName(), amount), NamedTextColor.DARK_PURPLE));
+                sender.sendMessage(Component.text(lang.getXpAdd(target.getName(), amount), lang.secondary()));
             }
             case "remove" -> {
-                if (args.length < 3) { sender.sendMessage(Component.text(lang.getXpUsage(), NamedTextColor.DARK_PURPLE)); return true; }
+                if (args.length < 3) { sender.sendMessage(Component.text(lang.getXpUsage(), lang.secondary())); return true; }
                 int amount = parseAmount(sender, args[2]);
                 if (amount < 0) return true;
                 int newTotal = Math.max(0, target.getTotalExperience() - amount);
                 target.setLevel(0); target.setExp(0); target.giveExp(newTotal);
-                sender.sendMessage(Component.text(lang.getXpRemove(target.getName(), amount), NamedTextColor.DARK_PURPLE));
+                sender.sendMessage(Component.text(lang.getXpRemove(target.getName(), amount), lang.secondary()));
             }
-            default -> sender.sendMessage(Component.text(lang.getXpUsage(), NamedTextColor.DARK_PURPLE));
+            default -> sender.sendMessage(Component.text(lang.getXpUsage(), lang.secondary()));
         }
         return true;
     }
@@ -79,7 +78,7 @@ public class XpCommand implements CommandExecutor, TabCompleter {
             if (v < 0) throw new NumberFormatException();
             return v;
         } catch (NumberFormatException e) {
-            sender.sendMessage(Component.text(lang.getXpInvalidAmount(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getXpInvalidAmount(), lang.secondary()));
             return -1;
         }
     }

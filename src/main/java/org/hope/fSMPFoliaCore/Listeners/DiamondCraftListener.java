@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,7 +42,7 @@ public class DiamondCraftListener implements Listener {
         // Players must craft one at a time when an XP cost is in effect.
         if (event.isShiftClick()) {
             event.setCancelled(true);
-            player.sendMessage(Component.text(lang.getDiamondCraftNoShiftClick(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getDiamondCraftNoShiftClick(), lang.secondary()));
             return;
         }
 
@@ -53,7 +52,7 @@ public class DiamondCraftListener implements Listener {
             event.setCancelled(true);
             player.sendMessage(Component.text(
                     lang.getDiamondCraftNoXp(xpCost, player.getTotalExperience()),
-                    NamedTextColor.DARK_PURPLE));
+                    lang.secondary()));
             return;
         }
 

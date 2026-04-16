@@ -1,5 +1,6 @@
 package org.hope.fSMPFoliaCore.Managers;
 
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -49,6 +50,22 @@ public class LangManager {
                 plugin.getLogger().warning("Failed to save lang.yml after merging defaults: " + e.getMessage());
             }
         }
+    }
+
+    // ── Colors ────────────────────────────────────────────────────
+
+    public TextColor primary()   { return color("colors.primary",   "#FF55FF"); }
+    public TextColor secondary() { return color("colors.secondary", "#AA00AA"); }
+    public TextColor error()     { return color("colors.error",     "#FF5555"); }
+    public TextColor success()   { return color("colors.success",   "#55FF55"); }
+    public TextColor warning()   { return color("colors.warning",   "#FFAA00"); }
+    public TextColor info()      { return color("colors.info",      "#AAAAAA"); }
+    public TextColor white()     { return color("colors.white",     "#FFFFFF"); }
+
+    private TextColor color(String key, String fallbackHex) {
+        String hex = lang.getString(key, fallbackHex);
+        TextColor parsed = TextColor.fromHexString(hex);
+        return parsed != null ? parsed : TextColor.fromHexString(fallbackHex);
     }
 
     private String get(String key) {
@@ -619,6 +636,21 @@ public class LangManager {
     public String getPortalEndDenied(String time) {
         return get("portal.end-denied").replace("{time}", time);
     }
+
+    public String getPortalNetherOpened() {
+        return get("portal.nether-opened");
+    }
+
+    public String getPortalEndOpened() {
+        return get("portal.end-opened");
+    }
+
+    // ── Voice Chat ────────────────────────────────────────────────
+
+    public String getVoicechatTitle()      { return get("voicechat.title"); }
+    public String getVoicechatMessage()    { return get("voicechat.message"); }
+    public String getVoicechatButtonText() { return get("voicechat.button-text"); }
+    public String getVoicechatHoverText()  { return get("voicechat.hover-text"); }
 
     // ── Reset Time ────────────────────────────────────────────────
 

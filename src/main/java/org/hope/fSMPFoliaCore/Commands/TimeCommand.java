@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,11 +26,11 @@ public class TimeCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getTimePlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getTimePlayersOnly(), lang.secondary()));
             return true;
         }
         if (!player.hasPermission("fsmp.time")) {
-            player.sendMessage(Component.text(lang.getTimeNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getTimeNoPermission(), lang.secondary()));
             return true;
         }
 
@@ -40,16 +39,16 @@ public class TimeCommand implements CommandExecutor {
             switch (mode) {
                 case DAY -> {
                     player.getWorld().setTime(1000L);
-                    player.sendMessage(Component.text(lang.getTimeDay(), NamedTextColor.LIGHT_PURPLE));
+                    player.sendMessage(Component.text(lang.getTimeDay(), lang.primary()));
                 }
                 case NIGHT -> {
                     player.getWorld().setTime(13000L);
-                    player.sendMessage(Component.text(lang.getTimeNight(), NamedTextColor.DARK_PURPLE));
+                    player.sendMessage(Component.text(lang.getTimeNight(), lang.secondary()));
                 }
                 case SUN -> {
                     player.getWorld().setStorm(false);
                     player.getWorld().setThundering(false);
-                    player.sendMessage(Component.text(lang.getTimeSun(), NamedTextColor.LIGHT_PURPLE));
+                    player.sendMessage(Component.text(lang.getTimeSun(), lang.primary()));
                 }
             }
         });

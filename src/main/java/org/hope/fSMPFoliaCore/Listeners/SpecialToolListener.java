@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,7 +37,7 @@ public class SpecialToolListener implements Listener {
         if (!toolManager.isSpecialTool(item)) return;
         if (toolManager.isExpired(item)) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_PURPLE));
+            event.getPlayer().sendMessage(Component.text(lang.getSpecialToolExpired(), lang.secondary()));
             // Remove only the held item slot, not all matching items in inventory
             event.getPlayer().getInventory().setItemInMainHand(null);
         }
@@ -52,7 +51,7 @@ public class SpecialToolListener implements Listener {
 
         if (toolManager.isExpired(item)) {
             event.setCancelled(true);
-            player.sendMessage(Component.text(lang.getSpecialToolExpired(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getSpecialToolExpired(), lang.secondary()));
             player.getInventory().setItemInMainHand(null);
             return;
         }
@@ -137,7 +136,7 @@ public class SpecialToolListener implements Listener {
             if (block.getType() != log) continue;
             found.add(block);
             for (int dx = -1; dx <= 1; dx++) {
-                for (int dy = 0; dy <= 1; dy++) {
+                for (int dy = -1; dy <= 1; dy++) {
                     for (int dz = -1; dz <= 1; dz++) {
                         if (dx == 0 && dy == 0 && dz == 0) continue;
                         Block neighbor = block.getRelative(dx, dy, dz);

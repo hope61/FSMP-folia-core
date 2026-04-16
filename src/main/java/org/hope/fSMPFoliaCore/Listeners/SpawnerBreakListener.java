@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,6 +28,6 @@ public class SpawnerBreakListener implements Listener {
         if (player.hasPermission("fsmp.spawner.bypass")) return;
 
         event.setCancelled(true);
-        player.sendMessage(Component.text(lang.getSpawnerBreakDenied(), NamedTextColor.DARK_PURPLE).decorate(TextDecoration.BOLD));
+        player.sendMessage(Component.text(lang.getSpawnerBreakDenied(), lang.secondary()).decorate(TextDecoration.BOLD));
     }
 }

@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,19 +21,19 @@ public class SetHomeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), lang.secondary()));
             return true;
         }
 
         String name = args.length > 0 ? args[0] : "home";
 
         if (!homeManager.isValidName(name)) {
-            player.sendMessage(Component.text(lang.getHomeInvalidName(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeInvalidName(), lang.secondary()));
             return true;
         }
 
@@ -45,11 +44,11 @@ public class SetHomeCommand implements CommandExecutor {
                 // Confirmed — overwrite
                 homeManager.clearPendingOverwrite(player.getUniqueId());
                 homeManager.setHome(player.getUniqueId(), name, player.getLocation());
-                player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.LIGHT_PURPLE));
+                player.sendMessage(Component.text(lang.getHomeSet(name), lang.primary()));
             } else {
                 // Ask for confirmation
                 homeManager.setPendingOverwrite(player.getUniqueId(), name);
-                player.sendMessage(Component.text(lang.getHomeAlreadyExistsConfirm(name), NamedTextColor.GOLD));
+                player.sendMessage(Component.text(lang.getHomeAlreadyExistsConfirm(name), lang.warning()));
             }
             return true;
         }
@@ -58,13 +57,13 @@ public class SetHomeCommand implements CommandExecutor {
         int limit = homeManager.getHomeLimit(player);
         int current = homeManager.getHomeNames(player.getUniqueId()).size();
         if (current >= limit) {
-            player.sendMessage(Component.text(lang.getHomeLimitReached(limit), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeLimitReached(limit), lang.secondary()));
             return true;
         }
 
         homeManager.clearPendingOverwrite(player.getUniqueId());
         homeManager.setHome(player.getUniqueId(), name, player.getLocation());
-        player.sendMessage(Component.text(lang.getHomeSet(name), NamedTextColor.LIGHT_PURPLE));
+        player.sendMessage(Component.text(lang.getHomeSet(name), lang.primary()));
         return true;
     }
 }

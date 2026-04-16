@@ -2,7 +2,6 @@ package org.hope.fSMPFoliaCore.Commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Location;
@@ -44,25 +43,25 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getHomePlayersOnly(), lang.secondary()));
             return true;
         }
 
         if (!player.hasPermission("fsmp.home")) {
-            player.sendMessage(Component.text(lang.getHomeNoPermission(), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNoPermission(), lang.secondary()));
             return true;
         }
 
         String name = args.length > 0 ? args[0] : "home";
 
         if (!homeManager.hasHome(player.getUniqueId(), name)) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), lang.secondary()));
             return true;
         }
 
         Location dest = homeManager.getHome(player.getUniqueId(), name);
         if (dest == null) {
-            player.sendMessage(Component.text(lang.getHomeNotFound(name), NamedTextColor.DARK_PURPLE));
+            player.sendMessage(Component.text(lang.getHomeNotFound(name), lang.secondary()));
             return true;
         }
 
@@ -73,7 +72,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
             if (last != null) {
                 long remaining = cooldownSeconds - (System.currentTimeMillis() - last) / 1000L;
                 if (remaining > 0) {
-                    player.sendActionBar(Component.text(lang.getHomeCooldown(remaining), NamedTextColor.RED));
+                    player.sendActionBar(Component.text(lang.getHomeCooldown(remaining), lang.error()));
                     return true;
                 }
             }
@@ -98,7 +97,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
                 t.cancel();
                 warmups.remove(player.getUniqueId());
                 player.sendActionBar(Component.empty());
-                player.sendMessage(Component.text(lang.getHomeWarmupCancelled(), NamedTextColor.DARK_PURPLE));
+                player.sendMessage(Component.text(lang.getHomeWarmupCancelled(), lang.secondary()));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.5f);
                 return;
             }
@@ -142,10 +141,10 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.2f);
                 player.showTitle(Title.title(
                         Component.text(lang.getHomeTitleMain(name))
-                                .color(NamedTextColor.LIGHT_PURPLE)
+                                .color(lang.primary())
                                 .decorate(TextDecoration.BOLD),
                         Component.text(lang.getHomeTeleported(name))
-                                .color(NamedTextColor.DARK_PURPLE),
+                                .color(lang.secondary()),
                         Title.Times.times(
                                 Duration.ofMillis(200),
                                 Duration.ofMillis(1800),
@@ -162,11 +161,11 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
         for (int i = 0; i < totalSeconds - secondsLeft; i++) empty.append('█');
 
         return Component.text()
-                .append(Component.text(filled.toString()).color(NamedTextColor.LIGHT_PURPLE))
-                .append(Component.text(empty.toString()).color(NamedTextColor.DARK_GRAY))
+                .append(Component.text(filled.toString()).color(lang.primary()))
+                .append(Component.text(empty.toString()).color(lang.info()))
                 .append(Component.text(" "))
-                .append(Component.text(secondsLeft + "с").color(NamedTextColor.LIGHT_PURPLE).decorate(TextDecoration.BOLD))
-                .append(Component.text(" — " + standStillText).color(NamedTextColor.GRAY))
+                .append(Component.text(secondsLeft + "с").color(lang.primary()).decorate(TextDecoration.BOLD))
+                .append(Component.text(" — " + standStillText).color(lang.info()))
                 .build();
     }
 

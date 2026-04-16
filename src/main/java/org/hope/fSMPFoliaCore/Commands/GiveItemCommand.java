@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Commands;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,12 +33,12 @@ public class GiveItemCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("fsmp.admin")) {
-            sender.sendMessage(Component.text(lang.getNoPermission(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getNoPermission(), lang.secondary()));
             return true;
         }
         // /fsmpcore giveitem <axe|pickaxe|shovel> <player> [amount]
         if (args.length < 3) {
-            sender.sendMessage(Component.text(lang.getGiveItemUsage(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getGiveItemUsage(), lang.secondary()));
             return true;
         }
 
@@ -51,13 +50,13 @@ public class GiveItemCommand implements CommandExecutor, TabCompleter {
             default -> null;
         };
         if (type == null) {
-            sender.sendMessage(Component.text(lang.getGiveItemUsage(), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getGiveItemUsage(), lang.secondary()));
             return true;
         }
 
         Player target = Bukkit.getPlayerExact(args[2]);
         if (target == null) {
-            sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[2]), NamedTextColor.DARK_PURPLE));
+            sender.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[2]), lang.secondary()));
             return true;
         }
 
@@ -67,7 +66,7 @@ public class GiveItemCommand implements CommandExecutor, TabCompleter {
                 amount = Integer.parseInt(args[3]);
                 if (amount < 1 || amount > 64) throw new NumberFormatException();
             } catch (NumberFormatException e) {
-                sender.sendMessage(Component.text(lang.getCratesInvalidAmount(), NamedTextColor.DARK_PURPLE));
+                sender.sendMessage(Component.text(lang.getCratesInvalidAmount(), lang.secondary()));
                 return true;
             }
         }
@@ -76,7 +75,7 @@ public class GiveItemCommand implements CommandExecutor, TabCompleter {
         for (int i = 0; i < amount; i++) {
             toolManager.giveTool(target, type, lifetimeHours);
         }
-        sender.sendMessage(Component.text(lang.getGiveItemSuccess(typeName, target.getName(), amount), NamedTextColor.DARK_PURPLE));
+        sender.sendMessage(Component.text(lang.getGiveItemSuccess(typeName, target.getName(), amount), lang.secondary()));
         return true;
     }
 

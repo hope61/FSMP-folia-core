@@ -1,7 +1,6 @@
 package org.hope.fSMPFoliaCore.Listeners;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -54,16 +53,16 @@ public class SleepSkipListener implements Listener {
         boolean enough = (required > 0 && sleepingCount >= required)
                 || (pct > 0 && (double) sleepingCount / totalCount * 100 >= pct);
 
-        if (config.isSleepBroadcastProgress()) {
+        if (config.isSleepBroadcastProgress() && sleepingCount > 0) {
             Bukkit.broadcast(Component.text(
-                    lang.getSleepProgress(sleepingCount, totalCount), NamedTextColor.DARK_PURPLE));
+                    lang.getSleepProgress(sleepingCount, totalCount), lang.secondary()));
         }
 
         if (enough) {
             world.setTime(1000L);
             world.setWeatherDuration(0);
             world.setThunderDuration(0);
-            Bukkit.broadcast(Component.text(lang.getSleepSkipped(), NamedTextColor.LIGHT_PURPLE));
+            Bukkit.broadcast(Component.text(lang.getSleepSkipped(), lang.primary()));
             for (Player p : Bukkit.getOnlinePlayers()) {
                 soundManager.play(p, "sleep-skip");
             }

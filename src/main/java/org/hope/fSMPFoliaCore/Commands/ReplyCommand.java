@@ -34,20 +34,20 @@ public class ReplyCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            player.sendMessage(Component.text(lang.getReplyUsage(), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getReplyUsage(), lang.secondary()));
             return true;
         }
 
         UUID targetUUID = messageManager.getReplyTarget(player.getUniqueId());
         if (targetUUID == null) {
-            player.sendMessage(Component.text(lang.getMsgNoReplyTarget(), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getMsgNoReplyTarget(), lang.secondary()));
             return true;
         }
 
         Player target = Bukkit.getPlayer(targetUUID);
         if (target == null || !target.isOnline()) {
             // Target UUID is known but the player is no longer online — no name available
-            player.sendMessage(Component.text(lang.getMsgNoReplyTarget(), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getMsgNoReplyTarget(), lang.secondary()));
             return true;
         }
 

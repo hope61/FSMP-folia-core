@@ -33,18 +33,18 @@ public class MsgCommand implements CommandExecutor {
         }
 
         if (args.length < 2) {
-            player.sendMessage(Component.text(lang.getMsgUsage(), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getMsgUsage(), lang.secondary()));
             return true;
         }
 
         Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null || !target.isOnline()) {
-            player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getMsgPlayerNotFound(args[0]), lang.secondary()));
             return true;
         }
 
         if (target.equals(player)) {
-            player.sendMessage(Component.text(lang.getMsgCannotSelf(), configManager.getMsgArrowColor()));
+            player.sendMessage(Component.text(lang.getMsgCannotSelf(), lang.secondary()));
             return true;
         }
 
@@ -57,15 +57,15 @@ public class MsgCommand implements CommandExecutor {
         messageManager.setReplyTarget(sender.getUniqueId(), target.getUniqueId());
 
         Component toSender = Component.text()
-                .append(Component.text(lang.getMsgFormatSent(target.getName()), configManager.getMsgArrowColor()).decorate(TextDecoration.ITALIC))
-                .append(Component.text(lang.getChatSeparator(), configManager.getMsgSeparatorColor()))
-                .append(Component.text(message, configManager.getMsgMessageColor()))
+                .append(Component.text(lang.getMsgFormatSent(target.getName()), lang.secondary()).decorate(TextDecoration.ITALIC))
+                .append(Component.text(lang.getChatSeparator(), lang.secondary()))
+                .append(Component.text(message, lang.white()))
                 .build();
 
         Component toTarget = Component.text()
-                .append(Component.text(lang.getMsgFormatReceived(sender.getName()), configManager.getMsgArrowColor()).decorate(TextDecoration.ITALIC))
-                .append(Component.text(lang.getChatSeparator(), configManager.getMsgSeparatorColor()))
-                .append(Component.text(message, configManager.getMsgMessageColor()))
+                .append(Component.text(lang.getMsgFormatReceived(sender.getName()), lang.secondary()).decorate(TextDecoration.ITALIC))
+                .append(Component.text(lang.getChatSeparator(), lang.secondary()))
+                .append(Component.text(message, lang.white()))
                 .build();
 
         sender.sendMessage(toSender);
