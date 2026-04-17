@@ -124,6 +124,11 @@ public final class FSMPFoliaCore extends JavaPlugin {
         // Vote
         getCommand("vote").setExecutor(new VoteCommand(langManager, configManager));
 
+        // Shop
+        ShopCommand shopCommand = new ShopCommand(langManager);
+        getCommand("shop").setExecutor(shopCommand);
+        getServer().getPluginManager().registerEvents(new ShopGuiListener(langManager, shopCommand), this);
+
         // Crates
         CratesCommand cratesCommand = new CratesCommand(langManager, crateManager);
         getCommand("crates").setExecutor(cratesCommand);

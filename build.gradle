@@ -16,6 +16,10 @@ repositories {
         name = "jitpack"
         url = "https://jitpack.io"
     }
+    maven {
+        name = "myth-mc-releases"
+        url = "https://repo.mythmc.ovh/releases/"
+    }
 }
 
 dependencies {
@@ -25,6 +29,7 @@ dependencies {
     }
     compileOnly("com.github.NuVotifier.NuVotifier:nuvotifier-bukkit:2.7.1")
     compileOnly("com.github.NuVotifier.NuVotifier:nuvotifier-api:2.7.1")
+    compileOnly("ovh.mythmc:banco-api:1.2.1")
 }
 
 tasks {

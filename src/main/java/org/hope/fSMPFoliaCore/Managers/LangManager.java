@@ -724,4 +724,26 @@ public class LangManager {
     public String getFsmpUsage() {
         return get("fsmp.usage");
     }
+
+    // ── Shop ──────────────────────────────────────────────────────
+
+    public String getShopPlayersOnly() {
+        return get("shop.players-only");
+    }
+
+    public String getShopUnavailable() {
+        return get("shop.unavailable");
+    }
+
+    public String getShopNotEnoughGold(java.math.BigDecimal price, java.math.BigDecimal balance) {
+        return get("shop.not-enough-gold")
+                .replace("{price}", price.toPlainString())
+                .replace("{balance}", balance.toPlainString());
+    }
+
+    public String getShopPurchased(String item, java.math.BigDecimal price) {
+        return get("shop.purchased")
+                .replace("{item}", item)
+                .replace("{price}", price.toPlainString());
+    }
 }
