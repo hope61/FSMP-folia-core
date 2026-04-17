@@ -88,7 +88,10 @@ public class CrateManager {
         meta.lore(List.of(
                 Component.empty(),
                 Component.text("Десен клик за да отвориш!")
-                        .color(lang.secondary())
+                        .color(lang.success())
+                        .decoration(TextDecoration.ITALIC, false),
+                Component.text("Ляв клик за преглед на награди!")
+                        .color(lang.info())
                         .decoration(TextDecoration.ITALIC, false)
         ));
         meta.getPersistentDataContainer().set(crateKey, PersistentDataType.BYTE, (byte) 1);

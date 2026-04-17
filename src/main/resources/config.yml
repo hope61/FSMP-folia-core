@@ -93,39 +93,39 @@ crates:
   rewards:
     - type: "xp"
       amount: 25
-      weight: 20
-    - type: "xp"
-      amount: 50
-      weight: 15
-    - type: "xp"
-      amount: 100
       weight: 10
     - type: "xp"
+      amount: 50
+      weight: 8
+    - type: "xp"
+      amount: 100
+      weight: 6
+    - type: "xp"
       amount: 200
-      weight: 7
+      weight: 4
     - type: "xp"
       amount: 500
-      weight: 4
+      weight: 3
     - type: "xp"
       amount: 1000
       weight: 1
     - type: "gold"
       amount: 8
-      weight: 15
-    - type: "gold"
-      amount: 16
       weight: 10
     - type: "gold"
+      amount: 16
+      weight: 7
+    - type: "gold"
       amount: 32
-      weight: 5
+      weight: 4
     - type: "totem"
-      weight: 8
+      weight: 10
     - type: "special_pickaxe"
-      weight: 2
+      weight: 4
     - type: "special_axe"
-      weight: 2
+      weight: 4
     - type: "special_shovel"
-      weight: 2
+      weight: 4
 
 # ── Special Tools ────────────────────────────────────────────────
 special-tools:
