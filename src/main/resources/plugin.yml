@@ -3,7 +3,7 @@ version: '1.0'
 main: org.hope.fSMPFoliaCore.FSMPFoliaCore
 api-version: '1.21'
 folia-supported: true
-soft-depend: [Vault, LuckPerms, NuVotifier, Votifier]
+soft-depend: [Vault, LuckPerms, NuVotifier, Votifier, Banco]
 
 commands:
   discord:
@@ -150,6 +150,9 @@ commands:
     usage: /fsmpcore giveitem <axe|pickaxe|shovel> <player> [amount]
     permission: fsmp.admin
     permission-message: "Нямаш право да използваш тази команда!"
+  shop:
+    description: Open the PvP shop
+    usage: /shop
   fsmp:
     description: Main plugin command
     usage: /fsmp reload
